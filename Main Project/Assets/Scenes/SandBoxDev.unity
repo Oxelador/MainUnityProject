@@ -1615,7 +1615,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446e2eb3e3539004bb4568a823824e3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponDamage: 1
   _timeAttack: 1.09
 --- !u!65 &1326962266
 BoxCollider:
@@ -7302,7 +7301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf8c08750954404783e6669b6fff8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponSpot: {fileID: 234405826}
+  _playerHand: {fileID: 0}
 --- !u!4 &5834425257893006376
 Transform:
   m_ObjectHideFlags: 0
@@ -7335,6 +7334,7 @@ GameObject:
   - component: {fileID: 8507497257447796332}
   - component: {fileID: 8507497257447796334}
   - component: {fileID: 8507497257447796333}
+  - component: {fileID: 8507497257447796337}
   - component: {fileID: 8507497257447796335}
   - component: {fileID: 8507497257447796336}
   m_Layer: 0
@@ -9445,7 +9445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf8c08750954404783e6669b6fff8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponSpot: {fileID: 2129826471}
+  _playerHand: {fileID: 2129826471}
 --- !u!114 &8507497257447796334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9460,7 +9460,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthValue: 100
   _healthDescription: Your Health Point (HP)
-  _strengthValue: 10
+  _strengthValue: 20
   _strengthDescription: Your Strength Point (SP)
 --- !u!114 &8507497257447796335
 MonoBehaviour:
@@ -9498,6 +9498,18 @@ CapsuleCollider:
   m_Height: 1.9
   m_Direction: 1
   m_Center: {x: 0, y: 0.95, z: 0}
+--- !u!114 &8507497257447796337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5886204630562905527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd365e5f8c9ccca49a5455dd5a2ad335, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8510828498887423637
 GameObject:
   m_ObjectHideFlags: 0

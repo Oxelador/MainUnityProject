@@ -74,7 +74,7 @@ public class Health : MonoBehaviour
         {
             _collider.enabled = false;
             GetComponent<NavMeshAgent>().isStopped = true;
-            GetComponent<CombatManager>().enabled = false;
+            GetComponent<PlayerWeaponController>().enabled = false;
         }
 
         _animator.SetBool("death", true);

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class InventoryController : MonoBehaviour
 {
-    private PlayerWeaponController _playerWeaponController;
+    private CharacterWeaponController _playerWeaponController;
     public Item sword;
 
     private void Start()
     {
-        _playerWeaponController = GetComponent<PlayerWeaponController>();
+        _playerWeaponController = GetComponent<CharacterWeaponController>();
         List<BaseStat> swordStats = new List<BaseStat>
         {
             new BaseStat(5, "Strength", "Strength Point (SP)")

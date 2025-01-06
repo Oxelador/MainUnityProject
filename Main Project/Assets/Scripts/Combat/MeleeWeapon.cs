@@ -5,34 +5,31 @@ using UnityEngine;
 public class MeleeWeapon : MonoBehaviour, IWeapon
 {
     public List<BaseStat> Stats { get; set; }
-    [SerializeField] private float _timeAttack;
     private Animator _animator;
+    private GameObject _owner;
 
     private void Start()
     {
         _animator = GetComponentInParent<Animator>();
-        GetComponent<Collider>().enabled = false;
+        _owner = transform.root.gameObject;
     }
 
     public void PerformAttack()
     {
-        StartCoroutine(Attack());
-    }
-
-    private IEnumerator Attack()
-    {
-        _animator.SetBool("melee_attack", true);
-        yield return new WaitForSeconds(_timeAttack);
-        _animator.SetBool("melee_attack", false);
+        _animator.SetTrigger("melee_attack");
     }
 
     private void OnTriggerEnter(Collider target)
     {
-        Health targetHealth = target.gameObject.GetComponent<Health>();
-        if (targetHealth != null)
-        {
-            //targetHealth.TakeDamage(Damage);
-        }
+        if (target.gameObject == _owner) return;
 
+        Health targetHealth = target.gameObject.GetComponent<Health>();
+        if(targetHealth != null )
+        {
+            if(target.tag == "Enemy" || target.tag == "Player")
+            {
+                targetHealth.TakeDamage(Stats[0].CalculateStatValue());
+            }
+        }
     }
 }

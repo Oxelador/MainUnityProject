@@ -35,7 +35,7 @@ public class Health : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _collider = GetComponent<Collider>();
-        _stats = GetComponent<Stats>();
+            _stats = GetComponent<Stats>();
         _maxHealth = _stats.stats[0].CalculateStatValue();
         _currentHealth = _maxHealth;
     }
@@ -74,7 +74,7 @@ public class Health : MonoBehaviour
         {
             _collider.enabled = false;
             GetComponent<NavMeshAgent>().isStopped = true;
-            GetComponent<PlayerWeaponController>().enabled = false;
+            GetComponent<CharacterWeaponController>().enabled = false;
         }
 
         _animator.SetBool("death", true);

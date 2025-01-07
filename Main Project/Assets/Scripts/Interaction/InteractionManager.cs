@@ -5,11 +5,11 @@ using UnityEngine;
 public class InteractionManager : MonoBehaviour
 {
     public Collider interactionArea;
-    private List<Interactable> interactableObjects = new List<Interactable>();
+    private List<IInteractable> interactableObjects = new List<IInteractable>();
 
     private void OnTriggerEnter(Collider other)
     {
-        Interactable interactable = other.GetComponent<Interactable>();
+        IInteractable interactable = other.GetComponent<IInteractable>();
         if(interactable != null && !interactableObjects.Contains(interactable))
         {
             interactableObjects.Add(interactable);
@@ -18,7 +18,7 @@ public class InteractionManager : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        Interactable interactable = other.GetComponent<Interactable>();
+        IInteractable interactable = other.GetComponent<IInteractable>();
         if (interactable != null && !interactableObjects.Contains(interactable))
         {
             interactableObjects.Remove(interactable);

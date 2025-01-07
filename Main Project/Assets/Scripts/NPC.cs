@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class NPC : Interactable
+public class NPC : MonoBehaviour, IInteractable
 {
     public string[] dialogue;
     public string npcName;
 
-    public override void Interact()
+    public void Interact()
     {
         DialogueSystem.Instance.AddNewDialogue(dialogue, npcName);
     }

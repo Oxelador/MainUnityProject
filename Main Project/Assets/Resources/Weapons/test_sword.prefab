@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 6250637901228954676}
   - component: {fileID: -60171509091240534}
   - component: {fileID: 2916732450628956728}
+  - component: {fileID: -2463251056610170016}
+  - component: {fileID: 5443401674184686896}
   m_Layer: 0
   m_Name: test_sword
   m_TagString: Untagged
@@ -146,3 +148,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446e2eb3e3539004bb4568a823824e3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &-2463251056610170016
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4968329985482905561}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.50000006
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5443401674184686896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4968329985482905561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc6e28861e8002840b0232ba7ac0a0c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PickUpRange: 1
+  ItemData: {fileID: 11400000, guid: e58328bee9b5ee641a4a03b89b4d74f4, type: 2}

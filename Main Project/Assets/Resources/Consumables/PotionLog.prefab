@@ -12,7 +12,9 @@ GameObject:
   - component: {fileID: 1284666124789309653}
   - component: {fileID: 6658133221940748878}
   - component: {fileID: 2885822386713477175}
+  - component: {fileID: 5280626008176306561}
   - component: {fileID: 3126572506960545041}
+  - component: {fileID: -4346385043995653123}
   m_Layer: 0
   m_Name: PotionLog
   m_TagString: Untagged
@@ -109,6 +111,27 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!135 &5280626008176306561
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316497861561720561}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!114 &3126572506960545041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,6 +144,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d8053b6cb90b14eba44945b15637b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-4346385043995653123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316497861561720561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc6e28861e8002840b0232ba7ac0a0c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PickUpRange: 1
+  ItemData: {fileID: 11400000, guid: 3f8179afbcda91549af7d60cd7fbfccd, type: 2}
 --- !u!1 &8476645169580543397
 GameObject:
   m_ObjectHideFlags: 0

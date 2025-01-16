@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17403a5d2b3892c4b992db3e9e371165, type: 3}
-  m_Name: TestItem
+  m_Name: sword
   m_EditorClassIdentifier: 
-  ID: 0
-  DisplayName: Test Item 1
-  Description: Test Item
-  Icon: {fileID: 0}
-  MaxStackSize: 5
+  ID: 1
+  DisplayName: sword
+  Description: base one-handed sword
+  Icon: {fileID: 21300000, guid: 5fd50594014b70e48bd6993443d46b32, type: 3}
+  MaxStackSize: 1

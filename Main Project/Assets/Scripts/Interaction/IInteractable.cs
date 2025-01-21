@@ -5,5 +5,7 @@ using UnityEngine.AI;
 
 public interface IInteractable
 {
-    public abstract void Interact();
+    public abstract void Interact(Interactor interactor, out bool interactSuccessful);
+
+    public abstract void EndInteraction();
 }

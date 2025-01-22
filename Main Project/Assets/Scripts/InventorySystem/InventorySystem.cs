@@ -25,7 +25,7 @@ public class InventorySystem
         }
     }
 
-    public bool AddToInventory(InventoryItemData itemToAdd, int amountToAdd)
+    public bool AddToInventory(ItemData itemToAdd, int amountToAdd)
     {
         if(ContainsItem(itemToAdd, out List<InventorySlot> invSlot)) // Check whether item exists in inventory
         {
@@ -55,7 +55,7 @@ public class InventorySystem
         return false;
     }
 
-    public bool ContainsItem(InventoryItemData itemToAdd, out List<InventorySlot> invSlot) // Do any of our slots have the item to add in them?
+    public bool ContainsItem(ItemData itemToAdd, out List<InventorySlot> invSlot) // Do any of our slots have the item to add in them?
     {
         invSlot = InventorySlots.Where(i => i.ItemData == itemToAdd).ToList(); // if they do, the get a list of all of them.
         return invSlot == null ? false : true; // If they do return true, if not return false.

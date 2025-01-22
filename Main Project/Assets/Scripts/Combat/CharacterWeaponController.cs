@@ -41,7 +41,7 @@ public class CharacterWeaponController : MonoBehaviour
         }
     }
 
-    public void EquipWeapon(Item itemToEquip)
+    public void EquipWeapon(EquipmentItemData itemToEquip)
     {
         if(_weaponObject != null)
         {

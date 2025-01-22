@@ -6,14 +6,14 @@ using UnityEngine;
 [Serializable]
 public class InventorySlot
 {
-    [SerializeField] private InventoryItemData itemData; // Reference to the data
+    [SerializeField] private ItemData itemData; // Reference to the data
     [SerializeField] private int stackSize; // Current stack size - how name of the data do we have?
 
     // Public getter for private fields
-    public InventoryItemData ItemData => itemData;
+    public ItemData ItemData => itemData;
     public int StackSize => stackSize;
 
-    public InventorySlot(InventoryItemData sourse, int amount) // Constructor to make a occupied inventory slot.
+    public InventorySlot(ItemData sourse, int amount) // Constructor to make a occupied inventory slot.
     {
         itemData = sourse;
         stackSize = amount;
@@ -44,7 +44,7 @@ public class InventorySlot
         }
     }
 
-    public void UpdateInventorySlot(InventoryItemData data, int amount) // Updates slot directly.
+    public void UpdateInventorySlot(ItemData data, int amount) // Updates slot directly.
     {
         itemData = data;
         stackSize = amount;

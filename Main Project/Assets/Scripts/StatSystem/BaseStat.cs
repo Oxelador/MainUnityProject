@@ -3,20 +3,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BaseStatEnum
+{
+    Health,
+    Strength
+}
+
+[Serializable]
 public class BaseStat
 {
-    public List<StatBonus> BaseAdditives { get; set; }
-    public int BaseValue { get; set; }
-    public string StatName { get; set; }
-    public string StatDesctiption { get; set; }
-    public int FinalValue { get; set; }
+    public List<StatBonus> BaseAdditives = new List<StatBonus>();
+    public int BaseValue;
+    public BaseStatEnum StatName;
+    public string StatDesctiption;
 
-    public BaseStat(int baseValue, string statName, string statDesctiption)
+    private int FinalValue;
+
+    public void Initialize()
     {
-        BaseAdditives = new List<StatBonus>();
-        BaseValue = baseValue;
-        StatName = statName;
-        StatDesctiption = statDesctiption;
+        if(BaseAdditives == null)
+        {
+            BaseAdditives = new List<StatBonus>();
+        }
     }
 
     public void AddStatBonus(StatBonus statBonus)

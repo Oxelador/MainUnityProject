@@ -556,63 +556,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &412760508
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1656459981899064719, guid: 3750dd7b06d8d5e459bbbfc93f047bb4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.635
-      objectReference: {fileID: 0}
-    - target: {fileID: 1656459981899064719, guid: 3750dd7b06d8d5e459bbbfc93f047bb4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.066000015
-      objectReference: {fileID: 0}
-    - target: {fileID: 1656459981899064719, guid: 3750dd7b06d8d5e459bbbfc93f047bb4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 1656459981899064719, guid: 3750dd7b06d8d5e459bbbfc93f047bb4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9238798
-      objectReference: {fileID: 0}
-    - target: {fileID: 1656459981899064719, guid: 3750dd7b06d8d5e459bbbfc93f047bb4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1656459981899064719, guid: 3750dd7b06d8d5e459bbbfc93f047bb4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.38268274
-      objectReference: {fileID: 0}
-    - target: {fileID: 1656459981899064719, guid: 3750dd7b06d8d5e459bbbfc93f047bb4, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1656459981899064719, guid: 3750dd7b06d8d5e459bbbfc93f047bb4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1656459981899064719, guid: 3750dd7b06d8d5e459bbbfc93f047bb4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -45
-      objectReference: {fileID: 0}
-    - target: {fileID: 1656459981899064719, guid: 3750dd7b06d8d5e459bbbfc93f047bb4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4968329985482905561, guid: 3750dd7b06d8d5e459bbbfc93f047bb4, type: 3}
-      propertyPath: m_Name
-      value: test_sword (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3750dd7b06d8d5e459bbbfc93f047bb4, type: 3}
 --- !u!1 &454508757
 GameObject:
   m_ObjectHideFlags: 0
@@ -3405,10 +3348,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2916732450628956728, guid: 3750dd7b06d8d5e459bbbfc93f047bb4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4968329985482905561, guid: 3750dd7b06d8d5e459bbbfc93f047bb4, type: 3}
       propertyPath: m_Name
       value: test_sword
       objectReference: {fileID: 0}
+    - target: {fileID: 5443401674184686896, guid: 3750dd7b06d8d5e459bbbfc93f047bb4, type: 3}
+      propertyPath: ItemData
+      value: 
+      objectReference: {fileID: 11400000, guid: 5a2f92bb270a2f14f845e694d00315e1, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9349,10 +9300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f71e9d84b990e468931f37d6f439e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthValue: 50
-  _healthDescription: 
-  _strengthValue: 2
-  _strengthDescription: 
+  stats: []
 --- !u!136 &5824040838851841436
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -9401,6 +9349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1259c29177e59448da81ba641ff015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weapon: {fileID: 0}
 --- !u!4 &5834425257893006376
 Transform:
   m_ObjectHideFlags: 0
@@ -9433,7 +9382,6 @@ GameObject:
   - component: {fileID: 8507497257447796332}
   - component: {fileID: 8507497257447796334}
   - component: {fileID: 8507497257447796333}
-  - component: {fileID: 8507497257447796337}
   - component: {fileID: 8507497257447796338}
   - component: {fileID: 8507497257447796335}
   - component: {fileID: 8507497257447796339}
@@ -11559,10 +11507,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f71e9d84b990e468931f37d6f439e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthValue: 100
-  _healthDescription: Your Health Point (HP)
-  _strengthValue: 20
-  _strengthDescription: Your Strength Point (SP)
+  stats:
+  - BaseValue: 100
+    StatName: 0
+    StatDesctiption: Your Health Point (HP)
+  - BaseValue: 20
+    StatName: 1
+    StatDesctiption: Your Strength Point (SP)
 --- !u!114 &8507497257447796335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11580,18 +11531,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   InteractionPointRadius: 1
---- !u!114 &8507497257447796337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5886204630562905527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd365e5f8c9ccca49a5455dd5a2ad335, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8507497257447796338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12618,4 +12557,3 @@ SceneRoots:
   - {fileID: 592057954}
   - {fileID: 939588143}
   - {fileID: 1778229420}
-  - {fileID: 412760508}

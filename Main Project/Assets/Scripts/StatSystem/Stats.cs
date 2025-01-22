@@ -6,18 +6,12 @@ public class Stats : MonoBehaviour
 {
     public List<BaseStat> stats = new List<BaseStat>();
 
-    [Header("Health")]
-    [SerializeField] private int _healthValue;
-    [SerializeField] private string _healthDescription;
-
-    [Header("Strength")]
-    [SerializeField] private int _strengthValue;
-    [SerializeField] private string _strengthDescription;
-
     private void Awake()
     {
-        stats.Add(new BaseStat(_healthValue, "Health", _healthDescription));
-        stats.Add(new BaseStat(_strengthValue, "Strength", _strengthDescription));
+        foreach (var stat in stats)
+        {
+            stat.Initialize();
+        }
     }
 
     public void AddStatBonus(List<BaseStat> baseStats)

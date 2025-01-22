@@ -35,7 +35,8 @@ public class Health : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _collider = GetComponent<Collider>();
-            _stats = GetComponent<Stats>();
+        _stats = GetComponent<Stats>();
+
         _maxHealth = _stats.stats[0].CalculateStatValue();
         _currentHealth = _maxHealth;
     }

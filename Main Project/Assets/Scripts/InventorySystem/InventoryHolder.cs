@@ -6,14 +6,14 @@ using UnityEngine.Events;
 public class InventoryHolder : MonoBehaviour
 {
     [SerializeField] private int inventorySize;
-    [SerializeField] protected InventorySystem inventorySystem;
+    [SerializeField] protected InventorySystem primaryInventorySystem;
 
-    public InventorySystem InventorySystem => inventorySystem;
+    public InventorySystem PrimaryInventorySystem => primaryInventorySystem;
 
     public static UnityAction<InventorySystem> OnDynamicInventoryDisplayRequested;
 
-    private void Awake()
+    protected virtual void Awake()
     {
-        inventorySystem = new InventorySystem(inventorySize);
+        primaryInventorySystem = new InventorySystem(inventorySize);
     }
 }

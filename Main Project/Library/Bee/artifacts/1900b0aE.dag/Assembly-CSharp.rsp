@@ -409,7 +409,6 @@
 "Assets/Scripts/UI Scripts/InventoryDisplay.cs"
 "Assets/Scripts/UI Scripts/InventorySlot_UI.cs"
 "Assets/Scripts/UI Scripts/InventoryUIController.cs"
-"Assets/Scripts/UI Scripts/StaticInventoryDisplay.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01_UGUI.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark02.cs"

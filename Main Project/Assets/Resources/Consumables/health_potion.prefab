@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5280626008176306561}
   - component: {fileID: -4346385043995653123}
   - component: {fileID: 2269297551542639488}
+  - component: {fileID: 183945345054950937}
   m_Layer: 0
   m_Name: health_potion
   m_TagString: Untagged
@@ -144,8 +145,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6e28861e8002840b0232ba7ac0a0c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PickUpRange: 1
+  PickUpRange: 3
   ItemData: {fileID: 11400000, guid: 0ac1c980862116a47b856728f7a7f901, type: 2}
+  itemSaveData:
+    ItemData: {fileID: 0}
+    Position: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &2269297551542639488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,6 +163,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 069534a0431901c44a84ef37beec2ed0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &183945345054950937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316497861561720561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6af89c9aed1e8a4429d80bc881dbb66d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: ef58f166-842e-4e4a-9b4f-e7387c4b6b88
 --- !u!1 &8476645169580543397
 GameObject:
   m_ObjectHideFlags: 0

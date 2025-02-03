@@ -11,7 +11,7 @@ using UnityEngine;
 public class ItemData : ScriptableObject
 {
     [Header("Base Item Data")]
-    public int ID;
+    public int ID = -1;
     public string DisplayName;
     [TextArea(4, 4)]
     public string Description;

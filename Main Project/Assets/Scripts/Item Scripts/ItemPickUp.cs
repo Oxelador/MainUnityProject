@@ -1,11 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
-using static UnityEditor.Experimental.GraphView.GraphView;
-using UnityEngine.AI;
 
 [RequireComponent(typeof(SphereCollider))]
 [RequireComponent(typeof(UniqueID))]
@@ -15,7 +9,6 @@ public class ItemPickUp : MonoBehaviour
     public ItemData ItemData;
 
     private SphereCollider myCollider;
-    private Camera _camera;
 
     [SerializeField] private ItemPickUpSaveData itemSaveData;
     private string id;
@@ -27,7 +20,6 @@ public class ItemPickUp : MonoBehaviour
         itemSaveData = new ItemPickUpSaveData(ItemData, transform.position, transform.rotation);
 
         myCollider = GetComponent<SphereCollider>();
-        _camera = FindObjectOfType<Camera>();
         myCollider.isTrigger = true;
         myCollider.radius = PickUpRange;
     }

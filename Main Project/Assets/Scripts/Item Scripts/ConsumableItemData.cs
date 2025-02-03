@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Inventory System/Consumable Item")]
 public class ConsumableItemData : ItemData
 {
-    [Header("Equipment Data")]
+    [Header("Consumable Data")]
     public bool ItemModifier; // TODO: item modifier for consumable items
     public List<BaseStat> Stats;
 }

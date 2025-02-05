@@ -20,4 +20,6 @@ public class ItemData : ScriptableObject
     public int MaxStackSize;
     public int GoldValue;
     public string ActionName;
+    public GameObject ItemPrefab;
+
 }

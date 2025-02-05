@@ -17,6 +17,8 @@ public class InventorySlot_UI : MonoBehaviour
     {
         ClearSlot();
 
+        _itemSprite.preserveAspect = true;
+
         _button = GetComponent<Button>();
         _button?.onClick.AddListener(OnUISlotClick);
 

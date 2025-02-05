@@ -35,7 +35,7 @@ public abstract class InventoryDisplay : MonoBehaviour
         bool isShiftPressed = Input.GetKey(KeyCode.LeftShift);
 
         // Does the clicked slot have item data - Does the mouse have no item data?
-        if(clickedUISlot.AssignedInventorySlot.ItemData != null && mouseInventoryItem.AssignedInventorySlot.ItemData == null)
+        if(clickedUISlot.AssignedInventorySlot.ItemData != null && mouseInventoryItem.assignedInventorySlot.ItemData == null)
         {
             // If player is holding shift key? Split the stack.
             if(isShiftPressed && clickedUISlot.AssignedInventorySlot.SplitStack(out InventorySlot halfStackSlot)) // split stack
@@ -53,9 +53,9 @@ public abstract class InventoryDisplay : MonoBehaviour
         }
 
         // Clicked slot doesn't have an item - Mouse does have an item - place the mouse item into the empty slot.
-        if (clickedUISlot.AssignedInventorySlot.ItemData == null && mouseInventoryItem.AssignedInventorySlot.ItemData != null)
+        if (clickedUISlot.AssignedInventorySlot.ItemData == null && mouseInventoryItem.assignedInventorySlot.ItemData != null)
         {
-            clickedUISlot.AssignedInventorySlot.AssignItem(mouseInventoryItem.AssignedInventorySlot);
+            clickedUISlot.AssignedInventorySlot.AssignItem(mouseInventoryItem.assignedInventorySlot);
             clickedUISlot.UpdateUISlot();
 
             mouseInventoryItem.ClearSlot();
@@ -66,29 +66,29 @@ public abstract class InventoryDisplay : MonoBehaviour
         // If different items, then swap the items.
 
         // Both slots have an item - decide what to do...
-        if (clickedUISlot.AssignedInventorySlot.ItemData != null && mouseInventoryItem.AssignedInventorySlot.ItemData != null)
+        if (clickedUISlot.AssignedInventorySlot.ItemData != null && mouseInventoryItem.assignedInventorySlot.ItemData != null)
         {
-            bool isSamaItem = clickedUISlot.AssignedInventorySlot.ItemData == mouseInventoryItem.AssignedInventorySlot.ItemData;
+            bool isSamaItem = clickedUISlot.AssignedInventorySlot.ItemData == mouseInventoryItem.assignedInventorySlot.ItemData;
 
             // Are both items the same? If so combine them.
-            if (isSamaItem && clickedUISlot.AssignedInventorySlot.EnoughRoomLeftInStack(mouseInventoryItem.AssignedInventorySlot.StackSize))
+            if (isSamaItem && clickedUISlot.AssignedInventorySlot.EnoughRoomLeftInStack(mouseInventoryItem.assignedInventorySlot.StackSize))
             {
-                clickedUISlot.AssignedInventorySlot.AssignItem(mouseInventoryItem.AssignedInventorySlot);
+                clickedUISlot.AssignedInventorySlot.AssignItem(mouseInventoryItem.assignedInventorySlot);
                 clickedUISlot.UpdateUISlot();
 
                 mouseInventoryItem.ClearSlot();
                 return;
             }
-            else if(isSamaItem && !clickedUISlot.AssignedInventorySlot.RoomLeftInStack(mouseInventoryItem.AssignedInventorySlot.StackSize, out int leftInStack))
+            else if(isSamaItem && !clickedUISlot.AssignedInventorySlot.RoomLeftInStack(mouseInventoryItem.assignedInventorySlot.StackSize, out int leftInStack))
             {
                 if (leftInStack < 1) SwapSlot(clickedUISlot); // Stack is full so swat the items
                 else // Slot is not the max, so take what's need from the mouse inventory.
                 {
-                    int remainingOnMouse = mouseInventoryItem.AssignedInventorySlot.StackSize - leftInStack;
+                    int remainingOnMouse = mouseInventoryItem.assignedInventorySlot.StackSize - leftInStack;
                     clickedUISlot.AssignedInventorySlot.AddToStack(leftInStack);
                     clickedUISlot.UpdateUISlot();
 
-                    var newItem = new InventorySlot(mouseInventoryItem.AssignedInventorySlot.ItemData, remainingOnMouse);
+                    var newItem = new InventorySlot(mouseInventoryItem.assignedInventorySlot.ItemData, remainingOnMouse);
                     mouseInventoryItem.ClearSlot();
                     mouseInventoryItem.UpdateMouseSlot(newItem);
                     return;
@@ -105,7 +105,7 @@ public abstract class InventoryDisplay : MonoBehaviour
 
     private void SwapSlot(InventorySlot_UI clickedUISlot)
     {
-        var clonedSLot = new InventorySlot(mouseInventoryItem.AssignedInventorySlot.ItemData, mouseInventoryItem.AssignedInventorySlot.StackSize);
+        var clonedSLot = new InventorySlot(mouseInventoryItem.assignedInventorySlot.ItemData, mouseInventoryItem.assignedInventorySlot.StackSize);
         mouseInventoryItem.ClearSlot();
 
         mouseInventoryItem.UpdateMouseSlot(clickedUISlot.AssignedInventorySlot);

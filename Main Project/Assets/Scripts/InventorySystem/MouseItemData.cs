@@ -8,46 +8,74 @@ using System;
 
 public class MouseItemData : MonoBehaviour
 {
-    public Image ItemSprite;
-    public TextMeshProUGUI ItemCount;
-    public InventorySlot AssignedInventorySlot;
+    public Image itemSprite;
+    public TextMeshProUGUI itemCount;
+    public InventorySlot assignedInventorySlot;
+
+    private Transform _playerTransform;
+    [SerializeField] private float _dropOffset = 1f;
 
     public void Awake()
     {
-        ItemSprite.color = Color.clear;
-        ItemCount.text = "";
+        itemSprite.color = Color.clear;
+
+        itemSprite.preserveAspect = true;
+        itemCount.text = "";
+
+        _playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        if (_playerTransform == null) Debug.Log("Player not found!");
+
     }
 
     public void UpdateMouseSlot(InventorySlot invSlot)
     {
-        AssignedInventorySlot.AssignItem(invSlot);
-        ItemSprite.sprite = invSlot.ItemData.Icon;
-        ItemCount.text = invSlot.StackSize.ToString();
-        ItemSprite.color = Color.white;
+        assignedInventorySlot.AssignItem(invSlot);
+        UpdateMouseSlot();
+    }
+
+    public void UpdateMouseSlot()
+    {
+        itemSprite.sprite = assignedInventorySlot.ItemData.Icon;
+        itemCount.text = assignedInventorySlot.StackSize.ToString();
+        itemSprite.color = Color.white;
     }
 
     private void Update()
     {
         // TODO: Add controller support
 
-        if(AssignedInventorySlot.ItemData != null) // If has an item, follow the mouse position.
+        if(assignedInventorySlot.ItemData != null) // If has an item, follow the mouse position.
         {
             transform.position = Input.mousePosition;
 
             if(Input.GetMouseButtonDown(0) && !IsPointerOverUIObject())
             {
-                ClearSlot();
-                // TODO: Drop the item on the ground.
+                if(assignedInventorySlot.ItemData.ItemPrefab != null)
+                {
+                    Instantiate(assignedInventorySlot.ItemData.ItemPrefab,
+                        _playerTransform.position + _playerTransform.forward * _dropOffset,
+                        Quaternion.identity);
+                }
+
+                if(assignedInventorySlot.StackSize > 1)
+                {
+                    assignedInventorySlot.AddToStack(-1);
+                    UpdateMouseSlot();
+                }
+                else
+                {
+                    ClearSlot();
+                }
             }
         }
     }
 
     public void ClearSlot()
     {
-        AssignedInventorySlot.CrearSlot();
-        ItemCount.text = "";
-        ItemSprite.color = Color.clear;
-        ItemSprite.sprite = null;
+        assignedInventorySlot.CrearSlot();
+        itemCount.text = "";
+        itemSprite.color = Color.clear;
+        itemSprite.sprite = null;
     }
 
     public static bool IsPointerOverUIObject()

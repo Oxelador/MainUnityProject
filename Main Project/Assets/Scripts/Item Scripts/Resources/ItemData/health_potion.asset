@@ -20,5 +20,6 @@ MonoBehaviour:
   MaxStackSize: 10
   GoldValue: 1
   ActionName: Drink
+  ItemPrefab: {fileID: 316497861561720561, guid: 675cd2978894e7248b7c6921201bf1f8, type: 3}
   ItemModifier: 0
   Stats: []

@@ -5,27 +5,29 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class UniqueID : MonoBehaviour
 {
-    [ReadOnly, SerializeField] private string _id = Guid.NewGuid().ToString();
+    [ReadOnly, SerializeField] private string _id;
 
-    [SerializeField] 
-    private static SerializableDictionary<string, GameObject> idDataBase
-        = new SerializableDictionary<string, GameObject>();
+    [SerializeField] private static SerializableDictionary<string, GameObject> _idDataBase = new SerializableDictionary<string, GameObject>();
 
     public string ID => _id;
 
-    private void OnValidate()
+    private void Awake()
     {
-        if (idDataBase.ContainsKey(_id)) Generate();
-        else idDataBase.Add(_id, gameObject);
+        if(_idDataBase == null) _idDataBase = 
+           new SerializableDictionary<string, GameObject>();
+
+        if (_idDataBase.ContainsKey(_id)) Generate();
+        else _idDataBase.Add(_id, gameObject);
     }
 
     private void OnDestroy()
     {
-        if(idDataBase.ContainsKey(_id)) idDataBase.Remove(_id);
+        if(_idDataBase.ContainsKey(_id)) _idDataBase.Remove(_id);
     }
 
     private void Generate()
     {
         _id = Guid.NewGuid().ToString();
+        _idDataBase.Add(_id, gameObject);
     }
 }

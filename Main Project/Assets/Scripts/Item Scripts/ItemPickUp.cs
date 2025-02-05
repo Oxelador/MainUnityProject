@@ -11,11 +11,10 @@ public class ItemPickUp : MonoBehaviour
     private SphereCollider myCollider;
 
     [SerializeField] private ItemPickUpSaveData itemSaveData;
-    private string id;
+    private string _id;
 
     private void Awake()
     {
-        id = GetComponent<UniqueID>().ID;
         SaveLoad.OnLoadGame += LoadGame;
         itemSaveData = new ItemPickUpSaveData(ItemData, transform.position, transform.rotation);
 
@@ -26,17 +25,18 @@ public class ItemPickUp : MonoBehaviour
 
     private void Start()
     {
-        SaveGameManager.data.activeItems.Add(id, itemSaveData);
+        _id = GetComponent<UniqueID>().ID;
+        SaveGameManager.data.activeItems.Add(_id, itemSaveData);
     }
 
     private void LoadGame(SaveData data)
     {
-        if(data.collectedItems.Contains(id)) Destroy(gameObject);
+        if(data.collectedItems.Contains(_id)) Destroy(gameObject);
     }
 
     private void OnDestroy()
     {
-        if(SaveGameManager.data.activeItems.ContainsKey(id)) SaveGameManager.data.activeItems.Remove(id);
+        if(SaveGameManager.data.activeItems.ContainsKey(_id)) SaveGameManager.data.activeItems.Remove(_id);
         SaveLoad.OnLoadGame -= LoadGame;
     }
 
@@ -47,7 +47,7 @@ public class ItemPickUp : MonoBehaviour
 
         if (inventory.AddToInventory(ItemData, 1))
         {
-            SaveGameManager.data.collectedItems.Add(id);
+            SaveGameManager.data.collectedItems.Add(_id);
             Destroy(this.gameObject);
         }
     }

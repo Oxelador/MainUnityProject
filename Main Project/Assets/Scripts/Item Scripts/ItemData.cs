@@ -15,7 +15,6 @@ public class ItemData : ScriptableObject
     public string DisplayName;
     [TextArea(4, 4)]
     public string Description;
-    public string ObjectSlug;
     public Sprite Icon;
     public int MaxStackSize;
     public int GoldValue;

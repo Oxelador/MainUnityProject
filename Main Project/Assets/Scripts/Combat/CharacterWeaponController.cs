@@ -49,8 +49,9 @@ public class CharacterWeaponController : MonoBehaviour
             Destroy(_playerHand.transform.GetChild(0).gameObject);
         }
 
-        _weaponObject = (GameObject) Instantiate(Resources.Load<GameObject>("Weapons/" + itemToEquip.ObjectSlug),
-            _playerHand.transform.position, _playerHand.transform.rotation);
+        _weaponObject = (GameObject) Instantiate(itemToEquip.ItemPrefab,
+            _playerHand.transform.position, 
+            _playerHand.transform.rotation);
 
         _equipedWeaponCollider = _weaponObject.GetComponent<Collider>();
 

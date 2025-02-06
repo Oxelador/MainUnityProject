@@ -15,7 +15,6 @@ public class BaseStat
     public List<StatBonus> BaseAdditives = new List<StatBonus>();
     public int BaseValue;
     public BaseStatEnum StatName;
-    public string StatDesctiption;
 
     private int FinalValue;
 

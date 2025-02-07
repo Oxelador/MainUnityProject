@@ -5,10 +5,14 @@ public class InventoryUIController : MonoBehaviour
     public DynamicInventoryDisplay inventoryPanel;
     public DynamicInventoryDisplay playerBackpackPanel;
 
+    // TODO: system menu (now its only saveloadbuttons holder)
+    public GameObject saveLoadButtons;
+
     private void Awake()
     {
         inventoryPanel.gameObject.SetActive(false);
-        playerBackpackPanel.gameObject.SetActive(false);
+        playerBackpackPanel.transform.parent.gameObject.SetActive(false);
+        saveLoadButtons.gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -24,13 +28,25 @@ public class InventoryUIController : MonoBehaviour
 
     }
 
-    void Update()
+    public void OpenSystemMenu()
     {
-        if(inventoryPanel.gameObject.activeInHierarchy && Input.GetKeyDown(KeyCode.Escape)) 
-           inventoryPanel.gameObject.SetActive(false);
+        saveLoadButtons.gameObject.SetActive(true);
+    }
 
-        if (playerBackpackPanel.gameObject.activeInHierarchy && Input.GetKeyDown(KeyCode.Escape))
-            playerBackpackPanel.gameObject.SetActive(false);
+    public void CloseSystemMenu()
+    {
+        saveLoadButtons.gameObject.SetActive(false);
+    }
+
+    public void ClosePlayerBackpack()
+    {
+        playerBackpackPanel.transform.parent.gameObject.SetActive(false);
+    }
+
+    public void CloseInventoryPanel()
+    {
+        if (inventoryPanel.gameObject.activeInHierarchy)
+            inventoryPanel.transform.parent.gameObject.SetActive(false);
     }
 
     private void DisplayInventory(InventorySystem invToDisplay)
@@ -41,7 +57,14 @@ public class InventoryUIController : MonoBehaviour
 
     private void DisplayPlayerInventory(InventorySystem invToDisplay)
     {
-        playerBackpackPanel.gameObject.SetActive(true);
-        playerBackpackPanel.RefreshDynamicInventory(invToDisplay);
+        if(!playerBackpackPanel.transform.parent.gameObject.activeInHierarchy)
+        {
+            playerBackpackPanel.transform.parent.gameObject.SetActive(true);
+            playerBackpackPanel.RefreshDynamicInventory(invToDisplay);
+        }
+        else
+        {
+            ClosePlayerBackpack();
+        }
     }
 }

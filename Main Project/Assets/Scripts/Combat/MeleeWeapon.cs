@@ -21,7 +21,7 @@ public class MeleeWeapon : MonoBehaviour, IWeapon
 
     private void OnTriggerEnter(Collider target)
     {
-        if (target.gameObject == _owner) return;
+        if (target.gameObject == _owner || target.gameObject == target.gameObject) return;
 
         Health targetHealth = target.gameObject.GetComponent<Health>();
         if(targetHealth != null )

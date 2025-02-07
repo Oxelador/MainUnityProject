@@ -12,7 +12,7 @@ public class CharacterWeaponController : MonoBehaviour
     private IWeapon _weaponScript;
 
     //old
-    private Collider _equipedWeaponCollider;
+    private MeshCollider _equipedWeaponCollider;
     private EnemyController _enemyController;
 
     private void Start()
@@ -53,7 +53,7 @@ public class CharacterWeaponController : MonoBehaviour
             _playerHand.transform.position, 
             _playerHand.transform.rotation);
 
-        _equipedWeaponCollider = _weaponObject.GetComponent<Collider>();
+        _equipedWeaponCollider = _weaponObject.GetComponent<MeshCollider>();
 
         _weaponScript = _weaponObject.GetComponent<IWeapon>();
         _weaponScript.Stats = itemToEquip.Stats;

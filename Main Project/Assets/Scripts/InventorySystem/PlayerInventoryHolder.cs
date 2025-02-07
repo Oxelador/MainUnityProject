@@ -24,12 +24,11 @@ public class PlayerInventoryHolder : InventoryHolder
         }
     }
 
-    void Update()
+
+    // method for sending request when pressing "backpack button"
+    public void DisplayRequest()
     {
-        if(Input.GetKeyDown(KeyCode.B))
-        {
-            OnPlayerInventoryDisplayRequested?.Invoke(primaryInventorySystem);
-        }
+        OnPlayerInventoryDisplayRequested?.Invoke(primaryInventorySystem);
     }
 
     public bool AddToInventory(ItemData data, int amount)

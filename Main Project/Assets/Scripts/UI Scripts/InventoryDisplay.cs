@@ -68,10 +68,10 @@ public abstract class InventoryDisplay : MonoBehaviour
         // Both slots have an item - decide what to do...
         if (clickedUISlot.AssignedInventorySlot.ItemData != null && mouseInventoryItem.assignedInventorySlot.ItemData != null)
         {
-            bool isSamaItem = clickedUISlot.AssignedInventorySlot.ItemData == mouseInventoryItem.assignedInventorySlot.ItemData;
+            bool isSameItem = clickedUISlot.AssignedInventorySlot.ItemData == mouseInventoryItem.assignedInventorySlot.ItemData;
 
             // Are both items the same? If so combine them.
-            if (isSamaItem && clickedUISlot.AssignedInventorySlot.EnoughRoomLeftInStack(mouseInventoryItem.assignedInventorySlot.StackSize))
+            if (isSameItem && clickedUISlot.AssignedInventorySlot.EnoughRoomLeftInStack(mouseInventoryItem.assignedInventorySlot.StackSize))
             {
                 clickedUISlot.AssignedInventorySlot.AssignItem(mouseInventoryItem.assignedInventorySlot);
                 clickedUISlot.UpdateUISlot();
@@ -79,7 +79,7 @@ public abstract class InventoryDisplay : MonoBehaviour
                 mouseInventoryItem.ClearSlot();
                 return;
             }
-            else if(isSamaItem && !clickedUISlot.AssignedInventorySlot.RoomLeftInStack(mouseInventoryItem.assignedInventorySlot.StackSize, out int leftInStack))
+            else if(isSameItem && !clickedUISlot.AssignedInventorySlot.RoomLeftInStack(mouseInventoryItem.assignedInventorySlot.StackSize, out int leftInStack))
             {
                 if (leftInStack < 1) SwapSlot(clickedUISlot); // Stack is full so swat the items
                 else // Slot is not the max, so take what's need from the mouse inventory.
@@ -94,7 +94,7 @@ public abstract class InventoryDisplay : MonoBehaviour
                     return;
                 }
             }
-            else if (!isSamaItem)
+            else if (!isSameItem)
             {
                 SwapSlot(clickedUISlot);
                 return;

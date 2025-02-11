@@ -13,14 +13,13 @@ public class ConsumableController : MonoBehaviour
 
     public void ConsumeItem(ConsumableItemData item)
     {
-        GameObject itemToSpawn = Instantiate(item.ItemPrefab, gameObject.transform.position, Quaternion.identity);
         if(item.ItemModifier)
         {
-            itemToSpawn.GetComponent<IConsumable>().Consume(stats);
+            item.ItemPrefab.GetComponent<IConsumable>().Consume(stats);
         }
         else
         {
-            itemToSpawn.GetComponent<IConsumable>().Consume();
+            item.ItemPrefab.GetComponent<IConsumable>().Consume();
         }
     }
 }

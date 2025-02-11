@@ -13,6 +13,7 @@ public class ItemData : ScriptableObject
     [Header("Base Item Data")]
     public int ID = -1;
     public string DisplayName;
+    public ItemTypes itemType;
     [TextArea(4, 4)]
     public string Description;
     public Sprite Icon;
@@ -21,4 +22,11 @@ public class ItemData : ScriptableObject
     public string ActionName;
     public GameObject ItemPrefab;
 
+}
+
+public enum ItemTypes
+{
+    Equipment,
+    Consumable,
+    Quest
 }

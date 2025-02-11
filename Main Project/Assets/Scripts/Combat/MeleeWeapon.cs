@@ -12,6 +12,7 @@ public class MeleeWeapon : MonoBehaviour, IWeapon
     {
         _animator = GetComponentInParent<Animator>();
         _owner = transform.root.gameObject;
+        //Debug.Log($"{this.gameObject.name} owner is {_owner}");
     }
 
     public void PerformAttack()

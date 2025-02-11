@@ -13,6 +13,8 @@ public class ItemPickUp : MonoBehaviour
     [SerializeField] private ItemPickUpSaveData itemSaveData;
     private string _id;
 
+    private bool isEquipped = false;
+
     private void Awake()
     {
         SaveLoad.OnLoadGame += LoadGame;
@@ -42,6 +44,9 @@ public class ItemPickUp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (isEquipped) return;
+
+        Debug.Log("trigger is triggered");
         var inventory = other.transform.GetComponent<PlayerInventoryHolder>();
         if(!inventory) return;
 
@@ -50,6 +55,16 @@ public class ItemPickUp : MonoBehaviour
             SaveGameManager.data.collectedItems.Add(_id);
             Destroy(this.gameObject);
         }
+    }
+
+    public void EquipItem()
+    {
+        isEquipped = true;
+    }
+
+    public void UnequipItem()
+    {
+        isEquipped = false;
     }
 }
 

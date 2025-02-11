@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class CharacterWeaponController : MonoBehaviour
 {
     //new
+
     [SerializeField] private GameObject _playerHand;
     private GameObject _weaponObject;
     private Stats _stats;
@@ -49,11 +47,13 @@ public class CharacterWeaponController : MonoBehaviour
             Destroy(_playerHand.transform.GetChild(0).gameObject);
         }
 
-        _weaponObject = (GameObject) Instantiate(itemToEquip.ItemPrefab,
+        _weaponObject = Instantiate((Resources.Load<GameObject>("Weapons/" + itemToEquip.ItemPrefab.name)),
             _playerHand.transform.position, 
             _playerHand.transform.rotation);
 
         _equipedWeaponCollider = _weaponObject.GetComponent<MeshCollider>();
+        _weaponObject.GetComponent<SphereCollider>().enabled = false;
+        _weaponObject.GetComponent<ItemPickUp>().EquipItem();
 
         _weaponScript = _weaponObject.GetComponent<IWeapon>();
         _weaponScript.Stats = itemToEquip.Stats;

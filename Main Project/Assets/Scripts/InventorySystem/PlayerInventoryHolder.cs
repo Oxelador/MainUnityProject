@@ -1,11 +1,8 @@
-using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerInventoryHolder : InventoryHolder
 {
-    
     public static UnityAction OnPlayerInventoryChanged;
-
     public static UnityAction<InventorySystem> OnPlayerInventoryDisplayRequested;
 
     private void Start()
@@ -33,7 +30,7 @@ public class PlayerInventoryHolder : InventoryHolder
 
     public bool AddToInventory(ItemData data, int amount)
     {
-        if(primaryInventorySystem.AddToInventory(data, amount))
+        if (primaryInventorySystem.AddToInventory(data, amount))
         {
             return true;
         }

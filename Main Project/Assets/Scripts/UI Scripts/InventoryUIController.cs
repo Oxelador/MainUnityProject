@@ -10,7 +10,7 @@ public class InventoryUIController : MonoBehaviour
 
     private void Awake()
     {
-        inventoryPanel.gameObject.SetActive(false);
+        inventoryPanel.transform.parent.gameObject.SetActive(false);
         playerBackpackPanel.transform.parent.gameObject.SetActive(false);
         saveLoadButtons.gameObject.SetActive(false);
     }
@@ -45,8 +45,7 @@ public class InventoryUIController : MonoBehaviour
 
     public void CloseInventoryPanel()
     {
-        if (inventoryPanel.gameObject.activeInHierarchy)
-            inventoryPanel.transform.parent.gameObject.SetActive(false);
+        inventoryPanel.transform.parent.gameObject.SetActive(false);
     }
 
     private void DisplayInventory(InventorySystem invToDisplay)
@@ -57,7 +56,7 @@ public class InventoryUIController : MonoBehaviour
 
     private void DisplayPlayerInventory(InventorySystem invToDisplay)
     {
-        if(!playerBackpackPanel.transform.parent.gameObject.activeInHierarchy)
+        if (!playerBackpackPanel.transform.parent.gameObject.activeInHierarchy)
         {
             playerBackpackPanel.transform.parent.gameObject.SetActive(true);
             playerBackpackPanel.RefreshDynamicInventory(invToDisplay);

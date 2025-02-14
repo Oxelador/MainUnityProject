@@ -28,6 +28,32 @@ public class InventoryUIController : MonoBehaviour
 
     }
 
+    private void DisplayInventory(InventorySystem invToDisplay)
+    {
+        if (!inventoryPanel.transform.parent.gameObject.activeInHierarchy)
+        {
+            inventoryPanel.transform.parent.gameObject.SetActive(true);
+            inventoryPanel.RefreshDynamicInventory(invToDisplay);
+        }
+        else
+        {
+            CloseInventoryPanel();
+        }
+    }
+
+    private void DisplayPlayerInventory(InventorySystem invToDisplay)
+    {
+        if (!playerBackpackPanel.transform.parent.gameObject.activeInHierarchy)
+        {
+            playerBackpackPanel.transform.parent.gameObject.SetActive(true);
+            playerBackpackPanel.RefreshDynamicInventory(invToDisplay);
+        }
+        else
+        {
+            ClosePlayerBackpack();
+        }
+    }
+
     public void OpenSystemMenu()
     {
         saveLoadButtons.gameObject.SetActive(true);
@@ -46,24 +72,5 @@ public class InventoryUIController : MonoBehaviour
     public void CloseInventoryPanel()
     {
         inventoryPanel.transform.parent.gameObject.SetActive(false);
-    }
-
-    private void DisplayInventory(InventorySystem invToDisplay)
-    {
-        inventoryPanel.gameObject.SetActive(true);
-        inventoryPanel.RefreshDynamicInventory(invToDisplay);
-    }
-
-    private void DisplayPlayerInventory(InventorySystem invToDisplay)
-    {
-        if (!playerBackpackPanel.transform.parent.gameObject.activeInHierarchy)
-        {
-            playerBackpackPanel.transform.parent.gameObject.SetActive(true);
-            playerBackpackPanel.RefreshDynamicInventory(invToDisplay);
-        }
-        else
-        {
-            ClosePlayerBackpack();
-        }
     }
 }

@@ -6,7 +6,7 @@ public class ConsumablePotion : MonoBehaviour, IConsumable
 {
     public void Consume()
     {
-        Debug.Log("You drink a health potion.");
+        Debug.Log("You drink a potion.");
     }
 
     public void Consume(Stats stats)

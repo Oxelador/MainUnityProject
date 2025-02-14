@@ -7,8 +7,11 @@ public class ItemDetailsUI : MonoBehaviour
 {
     InventorySlot_UI itemSlot;
     ItemData itemData;
+    Image itemIcon;
     Button itemInteractButton;
     TextMeshProUGUI itemNameText, itemDescriptionText, itemInteractButtonText;
+
+    public TextMeshProUGUI textStat;
 
     private void Start()
     {
@@ -16,19 +19,44 @@ public class ItemDetailsUI : MonoBehaviour
         itemDescriptionText = transform.Find("Item_Description").GetComponent <TextMeshProUGUI>();
         itemInteractButton = transform.Find("Interact_Button").GetComponent<Button>();
         itemInteractButtonText = itemInteractButton.transform.Find("Text").GetComponent<TextMeshProUGUI>();
+        itemIcon = transform.Find("Item_Icon").GetComponent<Image>();
+        gameObject.SetActive(false);
     }
 
     public void SetItemDetailsUI(InventorySlot_UI itemSlotUI)
     {
-        itemInteractButton.onClick.RemoveAllListeners();
-        this.itemSlot = itemSlotUI;
-        itemData = itemSlot.AssignedInventorySlot.ItemData;
-        if(itemData != null)
+        if (itemSlotUI.AssignedInventorySlot.ItemData != null)
         {
-            itemNameText.text = itemData.DisplayName;
-            itemDescriptionText.text = itemData.Description;
-            itemInteractButtonText.text = itemData.ActionName;
-            itemInteractButton.onClick.AddListener(OnItemInteract);
+            gameObject.SetActive(true);
+            textStat.text = "";
+            itemInteractButton.onClick.RemoveAllListeners();
+            this.itemSlot = itemSlotUI;
+            itemData = itemSlot.AssignedInventorySlot.ItemData;
+            if (itemData != null)
+            {
+                itemIcon.sprite = itemData.Icon;
+                itemNameText.text = itemData.DisplayName;
+                itemDescriptionText.text = itemData.Description;
+                itemInteractButtonText.text = itemData.ActionName;
+                itemInteractButton.onClick.AddListener(OnItemInteract);
+
+                if(itemData is EquipmentItemData equipmentItemData)
+                {
+                    foreach (BaseStat stat in equipmentItemData.Stats)
+                    {
+                        textStat.text += $"{stat.StatName}: {stat.BaseValue}\n";
+                    }
+                }
+                else if(itemData is ConsumableItemData consumableItemData)
+                {
+                    //TODO: display stats or actions for consumable items
+                }
+
+            }
+        }
+        else
+        {
+            gameObject.SetActive(false);
         }
     }
 
@@ -53,5 +81,12 @@ public class ItemDetailsUI : MonoBehaviour
             PlayerManager.Instance.EquipItem(itemData);
             itemSlot.ClearSlot();
         }
+        RemoveItem();
+    }
+
+    public void RemoveItem()
+    {
+        itemSlot = null;
+        gameObject.SetActive(false);
     }
 }

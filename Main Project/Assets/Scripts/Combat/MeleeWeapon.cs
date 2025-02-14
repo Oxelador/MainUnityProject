@@ -15,7 +15,7 @@ public class MeleeWeapon : MonoBehaviour, IWeapon
         _animator = GetComponentInParent<Animator>();
         _isAttacking = false;
 
-        Debug.Log($"{this.gameObject.name} owner is {_owner}");
+        //Debug.Log($"{this.gameObject.name} owner is {_owner}");
 
     }
 

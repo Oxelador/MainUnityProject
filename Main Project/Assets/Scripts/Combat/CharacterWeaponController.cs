@@ -10,7 +10,6 @@ public class CharacterWeaponController : MonoBehaviour
     private IWeapon _weaponScript;
 
     //old
-    private MeshCollider _equipedWeaponCollider;
     private EnemyController _enemyController;
 
     private void Start()
@@ -18,7 +17,7 @@ public class CharacterWeaponController : MonoBehaviour
         _enemyController = GetComponent<EnemyController>();
         _stats = GetComponent<Stats>();
         _stats.stats[1].CalculateStatValue();
-        _stats.DisplayStats();
+        //_stats.DisplayStats();
     }
 
     private void Update()
@@ -51,7 +50,6 @@ public class CharacterWeaponController : MonoBehaviour
             _playerHand.transform.position, 
             _playerHand.transform.rotation);
 
-        _equipedWeaponCollider = _weaponObject.GetComponent<MeshCollider>();
         _weaponObject.GetComponent<SphereCollider>().enabled = false;
         _weaponObject.GetComponent<ItemPickUp>().EquipItem();
 
@@ -60,23 +58,11 @@ public class CharacterWeaponController : MonoBehaviour
         _weaponObject.transform.SetParent(_playerHand.transform);
         _stats.AddStatBonus(itemToEquip.Stats);
         _stats.stats[1].CalculateStatValue();
-        Debug.Log($"Item: {_weaponObject.name} " +
-            $"with stats {_weaponScript.Stats[0].StatName} {_weaponScript.Stats[0].BaseValue} equipped.");
-        Debug.Log(_stats.stats[1]);
+        //Debug.Log($"Item: {_weaponObject.name} with stats {_weaponScript.Stats[0].StatName} {_weaponScript.Stats[0].BaseValue} equipped.");
     }
     public void PerformWeaponAttack()
     {
         _weaponObject.GetComponent<IWeapon>().PerformAttack();
-    }
-
-    public void EnableCollider()
-    {
-        _equipedWeaponCollider.enabled = true;
-    }
-
-    public void DisableCollider()
-    {
-        _equipedWeaponCollider.enabled = false;
     }
 }
 

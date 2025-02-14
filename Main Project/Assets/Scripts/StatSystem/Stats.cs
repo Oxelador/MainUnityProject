@@ -40,14 +40,14 @@ public class Stats : MonoBehaviour
         }
     }
 
-    public BaseStat GetBaseStat(BaseStatEnum statName)
+    public BaseStat GetStat(BaseStatEnum statName)
     {
         return stats.Find(x=>x.StatName == statName);
     }
 
     public void DisplayStats()
     {
-        Debug.Log($"Health: {GetBaseStat(BaseStatEnum.Health)}");
-        Debug.Log($"Strength: {GetBaseStat(BaseStatEnum.Strength)}");
+        Debug.Log($"Health: {GetStat(BaseStatEnum.Health)}");
+        Debug.Log($"Strength: {GetStat(BaseStatEnum.Strength)}");
     }
 }

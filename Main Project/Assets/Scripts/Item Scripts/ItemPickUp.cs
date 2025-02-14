@@ -46,7 +46,6 @@ public class ItemPickUp : MonoBehaviour
     {
         if (isEquipped) return;
 
-        Debug.Log("trigger is triggered");
         var inventory = other.transform.GetComponent<PlayerInventoryHolder>();
         if(!inventory) return;
 

@@ -10942,11 +10942,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f71e9d84b990e468931f37d6f439e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats:
-  - BaseValue: 50
-    StatName: 0
-  - BaseValue: 5
-    StatName: 1
+  statsList:
+  - BaseValue: 25
+    StatType: 0
+  - BaseValue: 1
+    StatType: 1
 --- !u!136 &5824040838851841436
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -13154,11 +13154,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f71e9d84b990e468931f37d6f439e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats:
-  - BaseValue: 100
-    StatName: 0
-  - BaseValue: 20
-    StatName: 1
+  statsList:
+  - BaseValue: 50
+    StatType: 0
+  - BaseValue: 10
+    StatType: 1
 --- !u!114 &8507497257447796335
 MonoBehaviour:
   m_ObjectHideFlags: 0

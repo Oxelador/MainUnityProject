@@ -59,11 +59,18 @@ public class ItemPickUp : MonoBehaviour
     public void EquipItem()
     {
         isEquipped = true;
+        myCollider.enabled = false;
     }
 
     public void UnequipItem()
     {
         isEquipped = false;
+    }
+
+    public void DropItem()
+    {
+        isEquipped = false;
+        myCollider.enabled = true;
     }
 }
 

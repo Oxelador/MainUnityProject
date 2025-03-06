@@ -21,8 +21,6 @@ MonoBehaviour:
   GoldValue: 5
   ActionName: Equip
   ItemPrefab: {fileID: 9143598269967412165, guid: ffdcfffa81d90dc47a307330932db1c8, type: 3}
-  Stats:
+  StatList:
   - BaseValue: 5
-    StatName: 1
-  - BaseValue: 10
-    StatName: 0
+    StatType: 1

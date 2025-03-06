@@ -37,7 +37,7 @@ public class Health : MonoBehaviour
         _collider = GetComponent<Collider>();
         _stats = GetComponent<Stats>();
 
-        _maxHealth = _stats.stats[0].CalculateStatValue();
+        _maxHealth = _stats.GetStat(BaseStatType.Health).FinalValue;
         _currentHealth = _maxHealth;
     }
 

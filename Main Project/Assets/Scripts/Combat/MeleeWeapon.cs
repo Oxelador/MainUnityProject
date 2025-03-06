@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class MeleeWeapon : MonoBehaviour, IWeapon
 {
-    public List<BaseStat> Stats { get; set; }
+    public List<BaseStat> WeaponStatList { get; set; }
     private Animator _animator;
     private GameObject _owner;
     private bool _isAttacking;
@@ -16,7 +18,6 @@ public class MeleeWeapon : MonoBehaviour, IWeapon
         _isAttacking = false;
 
         //Debug.Log($"{this.gameObject.name} owner is {_owner}");
-
     }
 
     private void Update()
@@ -59,7 +60,7 @@ public class MeleeWeapon : MonoBehaviour, IWeapon
             if ((target.tag == "Enemy" && _owner.tag == "Player")
                 || (target.tag == "Player" && _owner.tag == "Enemy"))
             {
-                targetHealth.TakeDamage(Stats[0].CalculateStatValue());
+                targetHealth.TakeDamage(WeaponStatList.FirstOrDefault(stat => stat.StatType == BaseStatType.Strength).FinalValue);
             }
         }
     }

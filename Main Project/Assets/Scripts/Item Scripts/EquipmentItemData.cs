@@ -6,5 +6,5 @@ using UnityEngine;
 public class EquipmentItemData : ItemData
 {
     [Header("Equipment Data")]
-    public List<BaseStat> Stats;
+    public List<BaseStat> StatList;
 }

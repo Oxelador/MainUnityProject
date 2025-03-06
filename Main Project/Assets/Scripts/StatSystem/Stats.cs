@@ -4,50 +4,40 @@ using UnityEngine;
 
 public class Stats : MonoBehaviour
 {
-    public List<BaseStat> stats = new List<BaseStat>();
+    public List<BaseStat> statsList = new List<BaseStat>();
 
     private void Awake()
     {
-        foreach (var stat in stats)
+        foreach (var stat in statsList)
         {
             stat.Initialize();
         }
     }
 
-    public void AddStatBonus(List<BaseStat> baseStats)
+    public void AddStatBonus(List<BaseStat> statBonuses)
     {
-        //получаем список статов, проходимся по нему
-        foreach (BaseStat baseStat in baseStats)
+        foreach (BaseStat statBonus in statBonuses)
         {
-            // берём из нашего списка статов элемент
-            // сравниваем статы по имени и если они равны,
-            stats.Find(x=> x.StatName == baseStat.StatName)
-                // довабляем его в список бонусных статов
-                .AddStatBonus(new StatBonus(baseStat.BaseValue));
+            GetStat(statBonus.StatType).AddStatBonus(new StatBonus(statBonus.BaseValue));
         }
     }
 
-    public void RemoveStatBonus(List<BaseStat> baseStats)
+    public void RemoveStatBonus(List<BaseStat> statBonuses)
     {
-        //получаем список статов, проходимся по нему
-        foreach (BaseStat baseStat in baseStats)
+        foreach (BaseStat statBonus in statBonuses)
         {
-            // берём из нашего списка статов элемент
-            // сравниваем статы по имени и если они равны,
-            stats.Find(x => x.StatName == baseStat.StatName)
-                // удаляем его из список бонусных статов
-                .RemoveStatBonus(new StatBonus(baseStat.BaseValue));
+            GetStat(statBonus.StatType).RemoveStatBonus(new StatBonus(statBonus.BaseValue));
         }
     }
 
-    public BaseStat GetStat(BaseStatEnum statName)
+    public BaseStat GetStat(BaseStatType statType)
     {
-        return stats.Find(x=>x.StatName == statName);
+        return statsList.Find(x=>x.StatType == statType);
     }
 
     public void DisplayStats()
     {
-        Debug.Log($"Health: {GetStat(BaseStatEnum.Health)}");
-        Debug.Log($"Strength: {GetStat(BaseStatEnum.Strength)}");
+        Debug.Log($"Health: {GetStat(BaseStatType.Health)}");
+        Debug.Log($"Strength: {GetStat(BaseStatType.Strength)}");
     }
 }

@@ -42,9 +42,9 @@ public class ItemDetailsUI : MonoBehaviour
 
                 if(itemData is EquipmentItemData equipmentItemData)
                 {
-                    foreach (BaseStat stat in equipmentItemData.Stats)
+                    foreach (BaseStat stat in equipmentItemData.StatList)
                     {
-                        textStat.text += $"{stat.StatName}: {stat.BaseValue}\n";
+                        textStat.text += $"{stat.StatType}: {stat.BaseValue}\n";
                     }
                 }
                 else if(itemData is ConsumableItemData consumableItemData)

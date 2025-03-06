@@ -2,7 +2,7 @@
 
 public interface IWeapon
 {
-    List<BaseStat> Stats { get; set; }
+    List<BaseStat> WeaponStatList { get; set; }
     void PerformAttack();
 }
 

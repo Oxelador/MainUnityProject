@@ -5,7 +5,7 @@ public class CharacterWeaponController : MonoBehaviour
     //new
 
     [SerializeField] private GameObject _playerHand;
-    private GameObject _weaponObject;
+    private GameObject _weaponPrefab;
     private Stats _stats;
     private IWeapon _weaponScript;
 
@@ -16,7 +16,6 @@ public class CharacterWeaponController : MonoBehaviour
     {
         _enemyController = GetComponent<EnemyController>();
         _stats = GetComponent<Stats>();
-        _stats.stats[1].CalculateStatValue();
         //_stats.DisplayStats();
     }
 
@@ -40,29 +39,38 @@ public class CharacterWeaponController : MonoBehaviour
 
     public void EquipWeapon(EquipmentItemData itemToEquip)
     {
-        if(_weaponObject != null)
+        if(_weaponPrefab != null)
         {
-            _stats.RemoveStatBonus(_weaponObject.GetComponent<IWeapon>().Stats);
+            _stats.RemoveStatBonus(_weaponPrefab.GetComponent<IWeapon>().WeaponStatList);
             Destroy(_playerHand.transform.GetChild(0).gameObject);
         }
 
-        _weaponObject = Instantiate((Resources.Load<GameObject>("Weapons/" + itemToEquip.ItemPrefab.name)),
+        //place weapon in hand
+        _weaponPrefab = Instantiate((Resources.Load<GameObject>("Weapons/" + itemToEquip.ItemPrefab.name)),
             _playerHand.transform.position, 
             _playerHand.transform.rotation);
 
-        _weaponObject.GetComponent<SphereCollider>().enabled = false;
-        _weaponObject.GetComponent<ItemPickUp>().EquipItem();
+        //mark item as equiped and disable pickUp collider
+        _weaponPrefab.GetComponent<ItemPickUp>().EquipItem();
+        
+        //set parent???
+        _weaponPrefab.transform.SetParent(_playerHand.transform);
 
-        _weaponScript = _weaponObject.GetComponent<IWeapon>();
-        _weaponScript.Stats = itemToEquip.Stats;
-        _weaponObject.transform.SetParent(_playerHand.transform);
-        _stats.AddStatBonus(itemToEquip.Stats);
-        _stats.stats[1].CalculateStatValue();
-        //Debug.Log($"Item: {_weaponObject.name} with stats {_weaponScript.Stats[0].StatName} {_weaponScript.Stats[0].BaseValue} equipped.");
+        //get weaponScript from prefab
+        _weaponScript = _weaponPrefab.GetComponent<IWeapon>();
+
+        //add stats from weapon to character
+        _stats.AddStatBonus(itemToEquip.StatList);
+
+        //set CharacterStatList to weaponScript statList
+        _weaponScript.WeaponStatList = _stats.statsList;
+
+        Debug.Log("Strength in WeaponControllerScript is " + _weaponScript.WeaponStatList.Find(stat => stat.StatType == BaseStatType.Strength));
+
     }
     public void PerformWeaponAttack()
     {
-        _weaponObject.GetComponent<IWeapon>().PerformAttack();
+        _weaponPrefab.GetComponent<IWeapon>().PerformAttack();
     }
 }
 

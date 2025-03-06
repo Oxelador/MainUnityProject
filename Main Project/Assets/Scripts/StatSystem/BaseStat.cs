@@ -3,20 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BaseStatEnum
-{
-    Health,
-    Strength
-}
+public enum BaseStatType { Health, Strength }
 
 [Serializable]
 public class BaseStat
 {
     public List<StatBonus> BaseAdditives = new List<StatBonus>();
-    public int BaseValue;
-    public BaseStatEnum StatName;
+    public float BaseValue;
+    public BaseStatType StatType;
 
-    private int FinalValue;
+    public float FinalValue { get; private set; }
 
     public void Initialize()
     {
@@ -24,19 +20,25 @@ public class BaseStat
         {
             BaseAdditives = new List<StatBonus>();
         }
+        else
+        {
+            CalculateStatValue();
+        }
     }
 
     public void AddStatBonus(StatBonus statBonus)
     {
         this.BaseAdditives.Add(statBonus);
+        CalculateStatValue();
     }
 
     public void RemoveStatBonus(StatBonus statBonus)
     {
         this.BaseAdditives.Remove(BaseAdditives.Find(x=>x.BonusValue == statBonus.BonusValue));
+        CalculateStatValue();
     }
 
-    public int CalculateStatValue()
+    private float CalculateStatValue()
     {
         this.FinalValue = 0;
         this.BaseAdditives.ForEach(x => this.FinalValue += x.BonusValue);

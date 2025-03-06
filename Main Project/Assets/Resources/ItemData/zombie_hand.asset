@@ -21,6 +21,6 @@ MonoBehaviour:
   GoldValue: 1
   ActionName: Attack
   ItemPrefab: {fileID: 3319748629238704209, guid: f45daa3f230e7c646a3ef61f697801d3, type: 3}
-  Stats:
+  StatList:
   - BaseValue: 1
-    StatName: 1
+    StatType: 1

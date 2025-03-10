@@ -66,19 +66,19 @@ public class ItemDetailsUI : MonoBehaviour
         {
             if(itemSlot.AssignedInventorySlot.StackSize > 1)
             {
-                PlayerManager.Instance.ConsumeItem(itemData);
+                Player.Instance.ConsumeItem(itemData);
                 itemSlot.AssignedInventorySlot.RemoveFromStack(1);
                 itemSlot.UpdateUISlot();
             }
             else
             {
-                PlayerManager.Instance.ConsumeItem(itemData);
+                Player.Instance.ConsumeItem(itemData);
                 itemSlot.ClearSlot();
             }
         }
         else if(itemData.itemType == ItemTypes.Equipment)
         {
-            PlayerManager.Instance.EquipItem(itemData);
+            Player.Instance.EquipItem(itemData);
             itemSlot.ClearSlot();
         }
         RemoveItem();

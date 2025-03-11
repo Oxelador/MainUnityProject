@@ -45,14 +45,31 @@ public class CharacterWeaponController : MonoBehaviour
 
         //add stats from weapon to character
         _stats.AddStatBonus(itemToEquip.StatList);
-
-        //set CharacterStatList to weaponScript statList
-        _weaponScript.WeaponStatList = _stats.statsList;
     }
 
     public void PerformWeaponAttack()
     {
-        _weaponPrefab.GetComponent<IWeapon>().PerformAttack();
+        _weaponScript.PerformAttack(CalculateDamage());
+    }
+
+    private float CalculateDamage()
+    {
+        float damageToDeal = (_stats.GetStat(BaseStatType.Strength).FinalValue * 2) // convert strength into attack power (1 strength == 2 AP)
+                                + Random.Range(1, 6); // in future it will be depend on weapon damage range
+        damageToDeal += CalculateCrit(damageToDeal);
+        return damageToDeal;
+    }
+
+    private float CalculateCrit(float damage)
+    {
+        if(Random.value <= .10f) // .10f - critical chance, will be add to stats later
+        {
+            float critDamage = damage * .50f; // .5f - critical damage multiplier
+            Debug.Log("Critical damage dealt: " + critDamage);
+            return critDamage;
+        }
+        Debug.Log("Damage dealt: " + damage);
+        return 0;
     }
 }
 

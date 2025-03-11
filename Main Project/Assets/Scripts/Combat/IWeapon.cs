@@ -3,6 +3,7 @@
 public interface IWeapon
 {
     List<BaseStat> WeaponStatList { get; set; }
-    void PerformAttack();
+    float CurrentDamage { get; set; }
+    void PerformAttack(float damage);
 }
 

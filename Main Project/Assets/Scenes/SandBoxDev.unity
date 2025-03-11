@@ -5613,6 +5613,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4389858432444029248, guid: b9063434edc0f514b82125e0f05798b4, type: 3}
+      propertyPath: statsList.Array.data[0].BaseValue
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4389858432444029248, guid: b9063434edc0f514b82125e0f05798b4, type: 3}
+      propertyPath: statsList.Array.data[1].BaseValue
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6172091277693096880, guid: b9063434edc0f514b82125e0f05798b4, type: 3}
       propertyPath: m_Name
       value: Zombie
@@ -5685,6 +5693,10 @@ PrefabInstance:
       propertyPath: _joystick
       value: 
       objectReference: {fileID: 1005935999}
+    - target: {fileID: 6291587010867205736, guid: 489ae7627381c3846847512a87a63116, type: 3}
+      propertyPath: statsList.Array.data[1].BaseValue
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6297497454845113403, guid: 489ae7627381c3846847512a87a63116, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.1062298

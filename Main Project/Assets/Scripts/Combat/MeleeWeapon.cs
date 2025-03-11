@@ -7,6 +7,9 @@ using UnityEngine;
 public class MeleeWeapon : MonoBehaviour, IWeapon
 {
     public List<BaseStat> WeaponStatList { get; set; }
+    public float CurrentDamage { get; set; }
+
+    private List<Collider> _collidersTouched = new List<Collider>();
     private Animator _animator;
     private GameObject _owner;
     private bool _isAttacking;
@@ -14,21 +17,20 @@ public class MeleeWeapon : MonoBehaviour, IWeapon
 
     private void Start()
     {
-        _animator = GetComponentInParent<Animator>();
         _isAttacking = false;
-
-        //Debug.Log($"{this.gameObject.name} owner is {_owner}");
     }
 
     private void Update()
     {
         _owner = transform.root.gameObject;
 
-        if (_owner.tag == FindObjectOfType<PlayerController>().transform.tag)
+        if (_owner.tag == "Player" && _animator == null)
         {
+            _animator = _owner.GetComponent<Animator>();
+
             foreach (AnimationClip clip in _animator.runtimeAnimatorController.animationClips)
             {
-                if (clip.name == "melee_attack")
+                if (clip.name == "MeleeAttack_OneHanded 1")
                 {
                     _attackDuration = clip.length;
                     break;
@@ -37,31 +39,55 @@ public class MeleeWeapon : MonoBehaviour, IWeapon
         }
     }
 
-    public void PerformAttack()
+    public void PerformAttack(float damage)
     {
-        _isAttacking = true;
-        _animator.SetTrigger("melee_attack");
+        CurrentDamage = damage;
+        StartAttack();
         StartCoroutine("ResetAttack");
     }
 
-    private IEnumerable ResetAttack()
+    private IEnumerator ResetAttack()
     {
         yield return new WaitForSeconds(_attackDuration);
+        EndAttack();
+    }
+
+    private void StartAttack()
+    {
+        _animator.SetTrigger("melee_attack");
+        _isAttacking = true;
+        _collidersTouched.Clear();
+    }
+
+    private void EndAttack()
+    {
         _isAttacking = false;
+        ProcessDamage();
+    }
+
+    private void ProcessDamage()
+    {
+        foreach (var target in _collidersTouched)
+        {
+            Health targetHealth = target.gameObject.GetComponent<Health>();
+            if (targetHealth != null)
+            {
+                if ((target.tag == "Enemy" && _owner.tag == "Player")
+                    || (target.tag == "Player" && _owner.tag == "Enemy"))
+                {
+                    targetHealth.TakeDamage(CurrentDamage);
+                }
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider target)
     {
         if (target.gameObject == _owner || _owner == null || !_isAttacking) return;
 
-        Health targetHealth = target.gameObject.GetComponent<Health>();
-        if (targetHealth != null)
+        if (!_collidersTouched.Contains(target))
         {
-            if ((target.tag == "Enemy" && _owner.tag == "Player")
-                || (target.tag == "Player" && _owner.tag == "Enemy"))
-            {
-                targetHealth.TakeDamage(WeaponStatList.FirstOrDefault(stat => stat.StatType == BaseStatType.Strength).FinalValue);
-            }
+            _collidersTouched.Add(target);
         }
     }
 }

@@ -22,7 +22,8 @@ public class UniqueID : MonoBehaviour
 
     private void OnDestroy()
     {
-        if(_idDataBase.ContainsKey(_id)) _idDataBase.Remove(_id);
+        if(_idDataBase.ContainsKey(_id)) 
+            _idDataBase.Remove(_id);
     }
 
     private void Generate()

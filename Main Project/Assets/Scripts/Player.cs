@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public Health Health { get; private set; }
     private CharacterWeaponController characterWeaponController;
     private ConsumableController consumableController;
+    private PlayerInventoryHolder playerInventoryHolder;
 
     private void Start()
     {
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour
         Health = GetComponent<Health>();
         characterWeaponController = GetComponent<CharacterWeaponController>();
         consumableController = GetComponent<ConsumableController>();
+        playerInventoryHolder = GetComponent<PlayerInventoryHolder>();
     }
     public void EquipItem(ItemData itemToEquip)
     {
@@ -28,6 +30,11 @@ public class Player : MonoBehaviour
     public void ConsumeItem(ItemData itemToConsume)
     {
         consumableController.ConsumeItem((ConsumableItemData)itemToConsume);
+    }
+
+    public void AddToPlayerInventory(ItemData itemToAdd)
+    {
+        playerInventoryHolder.AddToInventory(itemToAdd, 1);
     }
 }
 

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cde653a07b4d9c428607eaaadca7266, type: 3}
   m_Name: mana_potion
   m_EditorClassIdentifier: 
-  ID: 2
+  ID: 3
   DisplayName: Mana Potion
   itemType: 1
   Description: Base potion for restore MP.

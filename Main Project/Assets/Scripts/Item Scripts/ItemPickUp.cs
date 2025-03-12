@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(UniqueID))]
 public class ItemPickUp : MonoBehaviour
 {
-    public float PickUpRange = 3f;
+    public float PickUpRange = 0.1f;
     public ItemData ItemData;
 
     private SphereCollider myCollider;

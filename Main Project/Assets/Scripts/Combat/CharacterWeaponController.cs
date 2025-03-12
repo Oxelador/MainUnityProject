@@ -10,7 +10,6 @@ public class CharacterWeaponController : MonoBehaviour
     private void Start()
     {
         _stats = GetComponent<Stats>();
-        //_stats.DisplayStats();
     }
 
     private void Update()
@@ -25,7 +24,8 @@ public class CharacterWeaponController : MonoBehaviour
     {
         if (_weaponPrefab != null)
         {
-            _stats.RemoveStatBonus(_weaponPrefab.GetComponent<IWeapon>().WeaponStatList);
+            _stats.RemoveStatBonus(_weaponScript.WeaponStatList);
+            Player.Instance.AddToPlayerInventory(_weaponPrefab.GetComponent<ItemPickUp>().ItemData);
             Destroy(_playerHand.transform.GetChild(0).gameObject);
         }
 
@@ -42,6 +42,9 @@ public class CharacterWeaponController : MonoBehaviour
 
         //get weaponScript from prefab
         _weaponScript = _weaponPrefab.GetComponent<IWeapon>();
+
+        //set statList from ItemData to WeaponScript
+        _weaponScript.WeaponStatList = itemToEquip.StatList;
 
         //add stats from weapon to character
         _stats.AddStatBonus(itemToEquip.StatList);
@@ -62,13 +65,13 @@ public class CharacterWeaponController : MonoBehaviour
 
     private float CalculateCrit(float damage)
     {
-        if(Random.value <= .10f) // .10f - critical chance, will be add to stats later
+        if (Random.value <= .10f) // .10f - critical chance, will be add to stats later
         {
             float critDamage = damage * .50f; // .5f - critical damage multiplier
-            Debug.Log("Critical damage dealt: " + critDamage);
+            //Debug.Log("Critical damage dealt: " + critDamage);
             return critDamage;
         }
-        Debug.Log("Damage dealt: " + damage);
+        //Debug.Log("Damage dealt: " + damage);
         return 0;
     }
 }

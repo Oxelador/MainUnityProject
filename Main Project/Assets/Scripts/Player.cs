@@ -6,11 +6,12 @@ public class Player : MonoBehaviour
 {
     public static Player Instance { get; set; }
     public Health Health { get; private set; }
-    private CharacterWeaponController characterWeaponController;
+    public Stats Stats { get; private set; }
+    public CharacterWeaponController CharacterWeaponController { get; private set; }
     private ConsumableController consumableController;
     private PlayerInventoryHolder playerInventoryHolder;
 
-    private void Start()
+    private void Awake()
     {
         if (Instance != null && Instance != this)
             Destroy(gameObject);
@@ -18,13 +19,14 @@ public class Player : MonoBehaviour
             Instance = this;
 
         Health = GetComponent<Health>();
-        characterWeaponController = GetComponent<CharacterWeaponController>();
+        Stats = GetComponent<Stats>();
+        CharacterWeaponController = GetComponent<CharacterWeaponController>();
         consumableController = GetComponent<ConsumableController>();
         playerInventoryHolder = GetComponent<PlayerInventoryHolder>();
     }
     public void EquipItem(ItemData itemToEquip)
     {
-        characterWeaponController.EquipWeapon((EquipmentItemData)itemToEquip);
+        CharacterWeaponController.EquipWeapon((EquipmentItemData)itemToEquip);
     }
 
     public void ConsumeItem(ItemData itemToConsume)

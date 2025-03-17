@@ -24,9 +24,7 @@ public class CharacterWeaponController : MonoBehaviour
     {
         if (_weaponPrefab != null)
         {
-            _stats.RemoveStatBonus(_weaponScript.WeaponStatList);
-            Player.Instance.AddToPlayerInventory(_weaponPrefab.GetComponent<ItemPickUp>().ItemData);
-            Destroy(_playerHand.transform.GetChild(0).gameObject);
+            UnequipWeapon();
         }
 
         //place weapon in hand
@@ -48,6 +46,16 @@ public class CharacterWeaponController : MonoBehaviour
 
         //add stats from weapon to character
         _stats.AddStatBonus(itemToEquip.StatList);
+
+        UIEventHandler.ItemEquipped(itemToEquip);
+        UIEventHandler.StatsChanged();
+    }
+
+    public void UnequipWeapon()
+    {
+        _stats.RemoveStatBonus(_weaponScript.WeaponStatList);
+        Player.Instance.AddToPlayerInventory(_weaponPrefab.GetComponent<ItemPickUp>().ItemData);
+        Destroy(_playerHand.transform.GetChild(0).gameObject);
     }
 
     public void PerformWeaponAttack()

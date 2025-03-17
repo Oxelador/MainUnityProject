@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Stats : MonoBehaviour
 {
     public List<BaseStat> statsList = new List<BaseStat>();
 
-    private void Awake()
+    private void Start()
     {
         foreach (var stat in statsList)
         {

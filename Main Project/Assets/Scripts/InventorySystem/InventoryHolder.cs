@@ -13,21 +13,6 @@ public abstract class InventoryHolder : MonoBehaviour
 
     protected virtual void Awake()
     {
-        SaveLoad.OnLoadGame += LoadInventory;
-
         primaryInventorySystem = new InventorySystem(inventorySize);
-    }
-
-    protected abstract void LoadInventory(SaveData saveData);
-}
-
-[Serializable]
-public struct InventorySaveData
-{
-    public InventorySystem InvSystem;
-
-    public InventorySaveData(InventorySystem invSystem)
-    {
-        this.InvSystem = invSystem;
     }
 }

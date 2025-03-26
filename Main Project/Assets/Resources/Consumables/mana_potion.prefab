@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6626181029469084524}
   - component: {fileID: 5471196597686307152}
   - component: {fileID: 1839484926433666348}
-  - component: {fileID: 5641769353622267461}
   m_Layer: 0
   m_Name: mana_potion
   m_TagString: Untagged
@@ -71,10 +70,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PickUpRange: 0.2
   ItemData: {fileID: 11400000, guid: 247875626e7bacb40b214c8fdc43310d, type: 2}
-  itemSaveData:
-    ItemData: {fileID: 0}
-    Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &1839484926433666348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,19 +82,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 069534a0431901c44a84ef37beec2ed0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5641769353622267461
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4812275118310765178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6af89c9aed1e8a4429d80bc881dbb66d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _id: 633376af-83e2-455e-88ed-0b36b00a97ab
 --- !u!1 &6034401930965464331
 GameObject:
   m_ObjectHideFlags: 0

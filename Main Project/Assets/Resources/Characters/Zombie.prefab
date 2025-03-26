@@ -1365,9 +1365,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statsList:
-  - BaseValue: 25
+  - BaseValue: 1000
     StatType: 0
-  - BaseValue: 1
+  - BaseValue: 0
     StatType: 1
 --- !u!1 &6184796674386030924
 GameObject:

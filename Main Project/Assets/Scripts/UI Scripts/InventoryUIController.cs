@@ -5,14 +5,10 @@ public class InventoryUIController : MonoBehaviour
     public DynamicInventoryDisplay inventoryPanel;
     public DynamicInventoryDisplay playerBackpackPanel;
 
-    // TODO: system menu (now its only saveloadbuttons holder)
-    public GameObject saveLoadButtons;
-
     private void Awake()
     {
         inventoryPanel.transform.parent.gameObject.SetActive(false);
         playerBackpackPanel.transform.parent.gameObject.SetActive(false);
-        saveLoadButtons.gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -52,16 +48,6 @@ public class InventoryUIController : MonoBehaviour
         {
             ClosePlayerBackpack();
         }
-    }
-
-    public void OpenSystemMenu()
-    {
-        saveLoadButtons.gameObject.SetActive(true);
-    }
-
-    public void CloseSystemMenu()
-    {
-        saveLoadButtons.gameObject.SetActive(false);
     }
 
     public void ClosePlayerBackpack()

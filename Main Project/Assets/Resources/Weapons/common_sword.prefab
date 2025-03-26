@@ -97,7 +97,6 @@ GameObject:
   - component: {fileID: 7000494268012375726}
   - component: {fileID: 672286556127704200}
   - component: {fileID: 4769684752080136628}
-  - component: {fileID: 8080486844259121664}
   m_Layer: 0
   m_Name: common_sword
   m_TagString: Untagged
@@ -217,20 +216,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PickUpRange: 0.2
   ItemData: {fileID: 11400000, guid: 5a2f92bb270a2f14f845e694d00315e1, type: 2}
-  itemSaveData:
-    ItemData: {fileID: 0}
-    Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &8080486844259121664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9143598269967412165}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6af89c9aed1e8a4429d80bc881dbb66d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _id: ac0ea925-5d37-4ff9-b3c8-70f9d39be494

@@ -95,7 +95,6 @@ GameObject:
   - component: {fileID: 5791710990412013457}
   - component: {fileID: 5081134396819431266}
   - component: {fileID: 7000494268012375726}
-  - component: {fileID: 672286556127704200}
   - component: {fileID: 4769684752080136628}
   m_Layer: 0
   m_Name: common_sword
@@ -181,27 +180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446e2eb3e3539004bb4568a823824e3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &672286556127704200
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9143598269967412165}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.2
-  m_Center: {x: 0, y: 0.1, z: 0}
 --- !u!114 &4769684752080136628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,5 +192,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6e28861e8002840b0232ba7ac0a0c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PickUpRange: 0.2
+  PickUpRange: 0.4
   ItemData: {fileID: 11400000, guid: 5a2f92bb270a2f14f845e694d00315e1, type: 2}

@@ -5,14 +5,18 @@ using UnityEngine;
 
 public class Interactor : MonoBehaviour
 {
-    public Transform InteractionPoint;
     public LayerMask InteractionLayer;
-    public float InteractionPointRadius = 1.0f;
-    public bool IsInteracting { get; private set; }
+    public Transform interactionTransform;
+    public float radius = 2.0f;
 
     private void Update()
     {
-        var colliders = Physics.OverlapSphere(InteractionPoint.position, InteractionPointRadius, InteractionLayer);
+        var colliders = Physics.OverlapSphere(interactionTransform.position, radius, InteractionLayer);
+
+        foreach (var collider in colliders)
+        {
+            Debug.Log(collider.gameObject.name);
+        }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -27,12 +31,15 @@ public class Interactor : MonoBehaviour
 
     void StartInteraction(IInteractable interactable)
     {
-        interactable.Interact(this, out bool interactSuccessful);
-        IsInteracting = true;
+        interactable.Interact();
     }
 
-    void EndInteraction()
+    void OnDrawGizmosSelected()
     {
-        IsInteracting = false;
+        if (interactionTransform == null)
+            interactionTransform = transform;
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(interactionTransform.position, radius);
     }
 }

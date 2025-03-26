@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,6 +29,18 @@ public class Enemy : MonoBehaviour
         {
             ChasePlayer(_withinAggroColliders[0].GetComponent<Player>());
         }
+
+        if(_player != null)
+        {
+            FaceTarget();
+        }
+    }
+
+    void FaceTarget()
+    {
+        Vector3 direction = (_player.transform.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
     }
 
     void ChasePlayer(Player player)

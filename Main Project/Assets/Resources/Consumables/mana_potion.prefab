@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2354447358205247708}
-  - component: {fileID: 6626181029469084524}
   - component: {fileID: 5471196597686307152}
   - component: {fileID: 1839484926433666348}
   m_Layer: 0
@@ -35,27 +34,6 @@ Transform:
   - {fileID: 3838033926608912998}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &6626181029469084524
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4812275118310765178}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.2
-  m_Center: {x: 0, y: 0.1, z: 0}
 --- !u!114 &5471196597686307152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6e28861e8002840b0232ba7ac0a0c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PickUpRange: 0.2
+  PickUpRange: 2
   ItemData: {fileID: 11400000, guid: 247875626e7bacb40b214c8fdc43310d, type: 2}
 --- !u!114 &1839484926433666348
 MonoBehaviour:

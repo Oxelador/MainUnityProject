@@ -34,9 +34,9 @@ public class Player : MonoBehaviour
         consumableController.ConsumeItem((ConsumableItemData)itemToConsume);
     }
 
-    public void AddToPlayerInventory(ItemData itemToAdd)
+    public bool AddToPlayerInventory(ItemData itemToAdd)
     {
-        playerInventoryHolder.AddToInventory(itemToAdd, 1);
+        return playerInventoryHolder.AddToInventory(itemToAdd, 1);
     }
 }
 

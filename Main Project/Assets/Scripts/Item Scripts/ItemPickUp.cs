@@ -1,31 +1,21 @@
-using System;
 using UnityEngine;
 
-[RequireComponent(typeof(SphereCollider))]
-public class ItemPickUp : MonoBehaviour
+public class ItemPickUp : MonoBehaviour, IInteractable
 {
-    public float PickUpRange = 0.1f;
     public ItemData ItemData;
-
-    private SphereCollider myCollider;
 
     private bool isEquipped = false;
 
-    private void Awake()
+    void Start()
     {
-        myCollider = GetComponent<SphereCollider>();
-        myCollider.isTrigger = true;
-        myCollider.radius = PickUpRange;
+        gameObject.layer = LayerMask.NameToLayer("Interactable");
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void Interact()
     {
         if (isEquipped) return;
 
-        var inventory = other.transform.GetComponent<PlayerInventoryHolder>();
-        if(!inventory) return;
-
-        if (inventory.AddToInventory(ItemData, 1))
+        if (Player.Instance.AddToPlayerInventory(ItemData))
         {
             Destroy(this.gameObject);
         }
@@ -34,7 +24,6 @@ public class ItemPickUp : MonoBehaviour
     public void EquipItem()
     {
         isEquipped = true;
-        myCollider.enabled = false;
     }
 
     public void UnequipItem()
@@ -45,6 +34,5 @@ public class ItemPickUp : MonoBehaviour
     public void DropItem()
     {
         isEquipped = false;
-        myCollider.enabled = true;
     }
 }

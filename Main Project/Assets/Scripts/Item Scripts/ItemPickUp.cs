@@ -4,7 +4,13 @@ public class ItemPickUp : MonoBehaviour, IInteractable
 {
     public ItemData ItemData;
 
-    private bool isEquipped = false;
+    private bool isInteracted = false;
+
+    public bool IsInteracted 
+    {
+        get => isInteracted;
+        set => isInteracted = value;
+    }
 
     void Start()
     {
@@ -13,26 +19,13 @@ public class ItemPickUp : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if (isEquipped) return;
+        if (IsInteracted) return;
 
         if (Player.Instance.AddToPlayerInventory(ItemData))
         {
+            isInteracted = true;
             Destroy(this.gameObject);
+            InteractionButtonsUI.OnButtonRemove?.Invoke(gameObject);
         }
-    }
-
-    public void EquipItem()
-    {
-        isEquipped = true;
-    }
-
-    public void UnequipItem()
-    {
-        isEquipped = false;
-    }
-
-    public void DropItem()
-    {
-        isEquipped = false;
     }
 }

@@ -32,8 +32,8 @@ public class CharacterWeaponController : MonoBehaviour
             _playerHand.transform.position,
             _playerHand.transform.rotation);
 
-        //mark item as equiped and disable pickUp collider
-        _weaponPrefab.GetComponent<ItemPickUp>().EquipItem();
+        //mark item as equipped
+        _weaponPrefab.GetComponent<ItemPickUp>().IsInteracted = true;
 
         //set parent???
         _weaponPrefab.transform.SetParent(_playerHand.transform);

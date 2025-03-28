@@ -21,21 +21,42 @@ public class InteractionButtonsUI : MonoBehaviour
             Destroy(gameObject);
         else
             Instance = this;
+
+        scrollView.SetActive(false);
     }
 
     public void UpdateUI(HashSet<GameObject> nearbyObjects)
     {
-        var buttonsToRemove = new List<GameObject>(buttons.Keys);
-        buttonsToRemove.RemoveAll(obj => nearbyObjects.Contains(obj));
-
-        foreach (var obj in buttonsToRemove)
+        if(nearbyObjects.Count > 0)
         {
-            RemoveButton(obj);
+            scrollView.SetActive(true);
+            foreach (var obj in nearbyObjects)
+            {
+                CreateButton(obj);
+            }
+        }
+        else
+        {
+            foreach (var item in buttons)
+            {
+                item.Key.GetComponent<IInteractable>().IsNear = false;
+            }
+            scrollView.SetActive(false);
         }
 
-        foreach (var obj in nearbyObjects)
+        var objectsToRemove = new List<GameObject>();
+
+        foreach (var obj in buttons)
         {
-            CreateButton(obj);
+            if(obj.Key.GetComponent<IInteractable>().IsInteracted || !obj.Key.GetComponent<IInteractable>().IsNear)
+            {
+                objectsToRemove.Add(obj.Key);
+            }
+        }
+
+        foreach (var obj in objectsToRemove)
+        {
+            RemoveButton(obj);
         }
     }
 
@@ -44,6 +65,7 @@ public class InteractionButtonsUI : MonoBehaviour
         if (!buttons.ContainsKey(interactionObj))
         {
             var button = Instantiate(buttonPrefab, contentPanel);
+            interactionObj.GetComponent<IInteractable>().IsNear = true;
             buttons.Add(interactionObj, button);
             Debug.Log($"Add into dictionary {buttons[interactionObj]}");
             button.GetComponent<Button>().onClick.AddListener(() =>
@@ -57,13 +79,20 @@ public class InteractionButtonsUI : MonoBehaviour
 
     private void RemoveButton(GameObject interactionObj)
     {
-        var interactable = interactionObj.GetComponent<IInteractable>();
-
-        if (interactable.IsInteracted)
+        if (buttons.ContainsKey(interactionObj))
         {
-            Destroy(buttons[interactionObj].gameObject);
-            Debug.Log($"Remove from dictionary {buttons[interactionObj]}");
-            buttons.Remove(interactionObj);
+            var interactable = interactionObj.GetComponent<IInteractable>();
+
+            if (interactable.IsInteracted || !interactable.IsNear)
+            {
+                Destroy(buttons[interactionObj].gameObject);
+                Debug.Log($"Remove from dictionary {buttons[interactionObj]}");
+                buttons.Remove(interactionObj);
+            }
+        }
+        else
+        {
+            //Debug.LogWarning($"Key {interactionObj.name} not found in dictionary.");
         }
     }
 }

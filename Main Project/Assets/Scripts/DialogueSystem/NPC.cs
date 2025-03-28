@@ -6,11 +6,18 @@ public class NPC : MonoBehaviour, IInteractable
     public string npcName;
 
     private bool isInteracted = false;
+    private bool isNear = false;
 
     public bool IsInteracted
     {
         get => isInteracted;
         set => isInteracted = value;
+    }
+
+    public bool IsNear
+    {
+        get => isNear;
+        set => isNear = value;
     }
 
     public void Interact()

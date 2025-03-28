@@ -9,11 +9,14 @@ public class InteractionButtonsUI : MonoBehaviour
 
     public GameObject scrollView;
     public Transform contentPanel;
-    public Button buttonPrefab;
 
-    public Dictionary<GameObject, Button> buttons = new Dictionary<GameObject, Button>();
+    public Button pickUpButtonPrefab;
+    public Button talkButtonPrefab;
+    public Button chestButtonPrefab;
 
-    public static UnityAction<GameObject> OnButtonRemove;
+    public Dictionary<IInteractable, Button> buttons = new Dictionary<IInteractable, Button>();
+
+    public static UnityAction<IInteractable> OnButtonRemove;
 
     private void Awake()
     {
@@ -25,12 +28,12 @@ public class InteractionButtonsUI : MonoBehaviour
         scrollView.SetActive(false);
     }
 
-    public void UpdateUI(HashSet<GameObject> nearbyObjects)
+    public void UpdateUI(HashSet<IInteractable> nearbyInteractableObjects)
     {
-        if(nearbyObjects.Count > 0)
+        if (nearbyInteractableObjects.Count > 0)
         {
             scrollView.SetActive(true);
-            foreach (var obj in nearbyObjects)
+            foreach (var obj in nearbyInteractableObjects)
             {
                 CreateButton(obj);
             }
@@ -39,16 +42,16 @@ public class InteractionButtonsUI : MonoBehaviour
         {
             foreach (var item in buttons)
             {
-                item.Key.GetComponent<IInteractable>().IsNear = false;
+                item.Key.IsNear = false;
             }
             scrollView.SetActive(false);
         }
 
-        var objectsToRemove = new List<GameObject>();
+        var objectsToRemove = new List<IInteractable>();
 
         foreach (var obj in buttons)
         {
-            if(obj.Key.GetComponent<IInteractable>().IsInteracted || !obj.Key.GetComponent<IInteractable>().IsNear)
+            if (obj.Key.IsInteracted || !obj.Key.IsNear)
             {
                 objectsToRemove.Add(obj.Key);
             }
@@ -60,39 +63,52 @@ public class InteractionButtonsUI : MonoBehaviour
         }
     }
 
-    private void CreateButton(GameObject interactionObj)
+    private void CreateButton(IInteractable interactable)
     {
-        if (!buttons.ContainsKey(interactionObj))
+        if (!buttons.ContainsKey(interactable))
         {
-            var button = Instantiate(buttonPrefab, contentPanel);
-            interactionObj.GetComponent<IInteractable>().IsNear = true;
-            buttons.Add(interactionObj, button);
-            Debug.Log($"Add into dictionary {buttons[interactionObj]}");
+            var button = InstantiateButton(interactable);
+            interactable.IsNear = true;
+            buttons.Add(interactable, button);
             button.GetComponent<Button>().onClick.AddListener(() =>
             {
-                var interactable = interactionObj.GetComponent<IInteractable>();
                 OnButtonRemove += RemoveButton;
                 interactable.Interact();
             });
         }
     }
 
-    private void RemoveButton(GameObject interactionObj)
+    private void RemoveButton(IInteractable interactable)
     {
-        if (buttons.ContainsKey(interactionObj))
+        if (buttons.ContainsKey(interactable))
         {
-            var interactable = interactionObj.GetComponent<IInteractable>();
-
             if (interactable.IsInteracted || !interactable.IsNear)
             {
-                Destroy(buttons[interactionObj].gameObject);
-                Debug.Log($"Remove from dictionary {buttons[interactionObj]}");
-                buttons.Remove(interactionObj);
+                Destroy(buttons[interactable].gameObject);
+                buttons.Remove(interactable);
             }
         }
         else
         {
             //Debug.LogWarning($"Key {interactionObj.name} not found in dictionary.");
         }
+    }
+
+    private Button InstantiateButton(IInteractable obj)
+    {
+        if (obj is ItemPickUp)
+        {
+            return Instantiate(pickUpButtonPrefab, contentPanel);
+        } 
+        else if (obj is NPC)
+        {
+            return Instantiate(talkButtonPrefab, contentPanel);
+        }
+        else if(obj is ChestInventory)
+        {
+            return Instantiate(chestButtonPrefab, contentPanel);
+        }
+
+        return null;
     }
 }

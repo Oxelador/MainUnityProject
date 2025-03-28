@@ -703,7 +703,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scrollView: {fileID: 119248591}
   contentPanel: {fileID: 1747235888}
-  buttonPrefab: {fileID: 4869728678396034900, guid: 9cc6f1bbfb561094db44776c6c482de0, type: 3}
+  pickUpButtonPrefab: {fileID: 4869728678396034900, guid: 9cc6f1bbfb561094db44776c6c482de0, type: 3}
+  talkButtonPrefab: {fileID: 691790590246269243, guid: 968a6201a0aa9bc41a8b569b753f0ffd, type: 3}
+  chestButtonPrefab: {fileID: 3813712306111544220, guid: 3e21bc710e4450f479fe3c39f59227fd, type: 3}
 --- !u!114 &119248594
 MonoBehaviour:
   m_ObjectHideFlags: 0

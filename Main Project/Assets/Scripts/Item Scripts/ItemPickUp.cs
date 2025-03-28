@@ -32,7 +32,7 @@ public class ItemPickUp : MonoBehaviour, IInteractable
         {
             isInteracted = true;
             Destroy(this.gameObject);
-            InteractionButtonsUI.OnButtonRemove?.Invoke(gameObject);
+            InteractionButtonsUI.OnButtonRemove?.Invoke(gameObject.GetComponent<IInteractable>());
         }
     }
 }

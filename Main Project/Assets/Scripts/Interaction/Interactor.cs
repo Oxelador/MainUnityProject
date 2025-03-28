@@ -7,12 +7,12 @@ public class Interactor : MonoBehaviour
     public Transform interactionTransform;
     public float radius = 2.0f;
 
-    private HashSet<GameObject> _nearbyObjects = new HashSet<GameObject>();
+    private HashSet<IInteractable> _nearbyInteractableObjects = new HashSet<IInteractable>();
 
     private void Update()
     {
         var colliders = Physics.OverlapSphere(interactionTransform.position, radius, InteractionLayer);
-        var currentObjects = new HashSet<GameObject>();
+        var currentInteractableObjects = new HashSet<IInteractable>();
 
         // check all objects that fall within the radius
         foreach (var collider in colliders)
@@ -22,34 +22,34 @@ public class Interactor : MonoBehaviour
             // check if obj is already interacted before add
             if (interactable != null && !interactable.IsInteracted)
             {
-                currentObjects.Add(collider.gameObject);
+                currentInteractableObjects.Add(collider.gameObject.GetComponent<IInteractable>());
 
                 // if the object is new, add it
-                if (!_nearbyObjects.Contains(collider.gameObject))
+                if (!_nearbyInteractableObjects.Contains(collider.gameObject.GetComponent<IInteractable>())) // ?
                 {
                     //Debug.Log("Object add: " + collider.gameObject.name);
-                    _nearbyObjects.Add(collider.gameObject);
+                    _nearbyInteractableObjects.Add(collider.gameObject.GetComponent<IInteractable>());
                 }
             }
         }
 
         // checking which objects have left the radius
-        var objectsToRemove = new HashSet<GameObject>(_nearbyObjects);
-        objectsToRemove.ExceptWith(currentObjects);
+        var objectsToRemove = new HashSet<IInteractable>(_nearbyInteractableObjects);
+        objectsToRemove.ExceptWith(currentInteractableObjects);
 
         foreach (var obj in objectsToRemove)
         {
             if(obj == null)
             {
-                _nearbyObjects.Remove(obj);
+                _nearbyInteractableObjects.Remove(obj);
             } else
             {
                 //Debug.Log("Object remove: " + obj.name);
-                _nearbyObjects.Remove(obj);
+                _nearbyInteractableObjects.Remove(obj);
             }
         }
 
-        InteractionButtonsUI.Instance.UpdateUI(_nearbyObjects);
+        InteractionButtonsUI.Instance.UpdateUI(_nearbyInteractableObjects);
 
     }
 

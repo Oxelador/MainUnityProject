@@ -9,7 +9,6 @@ public class Health : MonoBehaviour
     public event Action<float> UpdateHealth;
     private float _maxHealth;
     private float _currentHealth;
-    private Stats _stats;
     private Animator _animator;
     private Collider _collider;
 
@@ -35,9 +34,7 @@ public class Health : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _collider = GetComponent<Collider>();
-        _stats = GetComponent<Stats>();
 
-        _maxHealth = _stats.GetStat(BaseStatType.Health).FinalValue;
         _currentHealth = _maxHealth;
     }
 

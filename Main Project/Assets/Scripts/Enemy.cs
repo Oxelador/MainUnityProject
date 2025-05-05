@@ -9,15 +9,13 @@ public class Enemy : MonoBehaviour
     public LayerMask aggroLayerMask;
     public float aggroRange = 10;
 
-    private Player _player;
-    private Stats _enemyStats;
+    private PlayerController _player;
     private NavMeshAgent _enemyNavAgent;
     private Animator _animator;
     private Collider[] _withinAggroColliders;
 
     void Start()
     {
-        _enemyStats = GetComponent<Stats>();
         _enemyNavAgent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
     }
@@ -27,7 +25,7 @@ public class Enemy : MonoBehaviour
         _withinAggroColliders = Physics.OverlapSphere(transform.position, aggroRange, aggroLayerMask);
         if (_withinAggroColliders.Length > 0)
         {
-            ChasePlayer(_withinAggroColliders[0].GetComponent<Player>());
+            ChasePlayer(_withinAggroColliders[0].GetComponent<PlayerController>());
         }
 
         if(_player != null)
@@ -43,7 +41,7 @@ public class Enemy : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
     }
 
-    void ChasePlayer(Player player)
+    void ChasePlayer(PlayerController player)
     {
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
@@ -76,6 +74,6 @@ public class Enemy : MonoBehaviour
     void PerformAttack()
     {
         _animator.SetTrigger("melee_attack");
-        _player.Health.TakeDamage(_enemyStats.GetStat(BaseStatType.Strength).FinalValue);
+        //_player.Health.TakeDamage(0);
     }
 }

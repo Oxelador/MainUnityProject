@@ -2788,7 +2788,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 637511314c3935f4a912ec41f4e52e6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomType: 0
+  RoomType: 0
+  limit: 99
   DoorU: {fileID: 251859712809492129}
   DoorR: {fileID: 6463874095083722344}
   DoorD: {fileID: 6396994269172833353}

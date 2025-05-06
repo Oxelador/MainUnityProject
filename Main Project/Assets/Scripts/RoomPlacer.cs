@@ -7,6 +7,11 @@ public class RoomPlacer : MonoBehaviour
 {
     public Room[] RoomPrefabs;
     public Room StartingRoom;
+    public Room BossRoom;
+    public Room ShopRoom;
+
+    public int roomCount = 10;
+    private int currentRoomCount;
 
     private Room[,] spawnedRooms; // list of already spawned rooms
 
@@ -15,7 +20,7 @@ public class RoomPlacer : MonoBehaviour
         spawnedRooms = new Room[11, 11];
         spawnedRooms[5, 5] = StartingRoom; // place starting room into the "center"
 
-        for (int i = 0; i < 12; i++) // loop for creat 12 rooms
+        for (int i = 0; i < roomCount; i++) // loop for creat rooms
         {
             PlaceOneRoom();
             yield return new WaitForSecondsRealtime(0.5f);
@@ -42,7 +47,7 @@ public class RoomPlacer : MonoBehaviour
             }
         }
 
-        Room newRoom = Instantiate(RoomPrefabs[Random.Range(0, RoomPrefabs.Length)]); // instantiate random room from prefab list
+        Room newRoom = Instantiate(TakeRoom()); // instantiate random room from prefab list
 
         int limit = 500;
         while (limit-- > 0)
@@ -50,7 +55,7 @@ public class RoomPlacer : MonoBehaviour
             Vector2Int position = vacantPlaces.ElementAt(Random.Range(0, vacantPlaces.Count)); // get position from matrix
             newRoom.RotateRandomly();
 
-            if(ConnectToSomething(newRoom, position))
+            if (ConnectToSomething(newRoom, position))
             {
                 newRoom.transform.position = new Vector3(position.x - 5, 0, position.y - 5) * 25.5f; // set room position
                 spawnedRooms[position.x, position.y] = newRoom; // add spawned room to list
@@ -59,6 +64,25 @@ public class RoomPlacer : MonoBehaviour
         }
 
         Destroy(newRoom.gameObject);
+    }
+
+    private Room TakeRoom()
+    {
+        if (currentRoomCount == 9)
+        {
+            currentRoomCount++;
+            return BossRoom;
+        }
+        else if (currentRoomCount == 5)
+        {
+            currentRoomCount++;
+            return ShopRoom;
+        }
+        else
+        {
+            currentRoomCount++;
+            return RoomPrefabs[Random.Range(0, RoomPrefabs.Length)];
+        }
     }
 
     private bool ConnectToSomething(Room room, Vector2Int p)

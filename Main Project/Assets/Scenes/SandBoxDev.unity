@@ -2939,9 +2939,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoomPrefabs:
   - {fileID: 6999324507818093795, guid: 93ca7ebd8794bfa4883c81841445ef10, type: 3}
-  - {fileID: 5199886634201926085, guid: 50691f015adf7ae4e9e69152940319a6, type: 3}
-  - {fileID: 5827678338739593443, guid: 4101fdaee620ea940b9eb6e09c77775e, type: 3}
   StartingRoom: {fileID: 190620600}
+  BossRoom: {fileID: 5199886634201926085, guid: 50691f015adf7ae4e9e69152940319a6, type: 3}
+  ShopRoom: {fileID: 5827678338739593443, guid: 4101fdaee620ea940b9eb6e09c77775e, type: 3}
+  roomCount: 10
 --- !u!4 &1707609140
 Transform:
   m_ObjectHideFlags: 0
@@ -6844,7 +6845,7 @@ PrefabInstance:
       objectReference: {fileID: 1785346291}
     - target: {fileID: 662439841299567421, guid: 93ca7ebd8794bfa4883c81841445ef10, type: 3}
       propertyPath: m_VersionIndex
-      value: 682
+      value: 688
       objectReference: {fileID: 0}
     - target: {fileID: 957343242103621461, guid: 93ca7ebd8794bfa4883c81841445ef10, type: 3}
       propertyPath: m_Mesh
@@ -6856,7 +6857,7 @@ PrefabInstance:
       objectReference: {fileID: 782406048}
     - target: {fileID: 1442018777351847985, guid: 93ca7ebd8794bfa4883c81841445ef10, type: 3}
       propertyPath: m_VersionIndex
-      value: 1338
+      value: 1344
       objectReference: {fileID: 0}
     - target: {fileID: 1669428723016935375, guid: 93ca7ebd8794bfa4883c81841445ef10, type: 3}
       propertyPath: m_Mesh
@@ -6864,7 +6865,7 @@ PrefabInstance:
       objectReference: {fileID: 87728050}
     - target: {fileID: 1669428723016935375, guid: 93ca7ebd8794bfa4883c81841445ef10, type: 3}
       propertyPath: m_VersionIndex
-      value: 679
+      value: 685
       objectReference: {fileID: 0}
     - target: {fileID: 1723165152159783853, guid: 93ca7ebd8794bfa4883c81841445ef10, type: 3}
       propertyPath: m_Mesh
@@ -6920,7 +6921,7 @@ PrefabInstance:
       objectReference: {fileID: 828083595}
     - target: {fileID: 5606060250677598315, guid: 93ca7ebd8794bfa4883c81841445ef10, type: 3}
       propertyPath: m_VersionIndex
-      value: 1338
+      value: 1344
       objectReference: {fileID: 0}
     - target: {fileID: 5789697324495718435, guid: 93ca7ebd8794bfa4883c81841445ef10, type: 3}
       propertyPath: m_Mesh
@@ -6932,7 +6933,7 @@ PrefabInstance:
       objectReference: {fileID: 150796398}
     - target: {fileID: 5980531532180420692, guid: 93ca7ebd8794bfa4883c81841445ef10, type: 3}
       propertyPath: m_VersionIndex
-      value: 1338
+      value: 1344
       objectReference: {fileID: 0}
     - target: {fileID: 6311750787188130642, guid: 93ca7ebd8794bfa4883c81841445ef10, type: 3}
       propertyPath: m_Name
@@ -6956,7 +6957,7 @@ PrefabInstance:
       objectReference: {fileID: 762370158}
     - target: {fileID: 7547939145697638857, guid: 93ca7ebd8794bfa4883c81841445ef10, type: 3}
       propertyPath: m_VersionIndex
-      value: 679
+      value: 685
       objectReference: {fileID: 0}
     - target: {fileID: 7760979655587912627, guid: 93ca7ebd8794bfa4883c81841445ef10, type: 3}
       propertyPath: m_Mesh
@@ -6968,7 +6969,7 @@ PrefabInstance:
       objectReference: {fileID: 1696992047}
     - target: {fileID: 7913288661512473817, guid: 93ca7ebd8794bfa4883c81841445ef10, type: 3}
       propertyPath: m_VersionIndex
-      value: 140
+      value: 146
       objectReference: {fileID: 0}
     - target: {fileID: 7930458779166984793, guid: 93ca7ebd8794bfa4883c81841445ef10, type: 3}
       propertyPath: m_Mesh
@@ -6976,7 +6977,7 @@ PrefabInstance:
       objectReference: {fileID: 1061169634}
     - target: {fileID: 7930458779166984793, guid: 93ca7ebd8794bfa4883c81841445ef10, type: 3}
       propertyPath: m_VersionIndex
-      value: 1338
+      value: 1344
       objectReference: {fileID: 0}
     - target: {fileID: 8114957189349650492, guid: 93ca7ebd8794bfa4883c81841445ef10, type: 3}
       propertyPath: m_Mesh
@@ -6984,7 +6985,7 @@ PrefabInstance:
       objectReference: {fileID: 1224755698}
     - target: {fileID: 8114957189349650492, guid: 93ca7ebd8794bfa4883c81841445ef10, type: 3}
       propertyPath: m_VersionIndex
-      value: 679
+      value: 685
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

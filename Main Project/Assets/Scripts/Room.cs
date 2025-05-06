@@ -4,6 +4,8 @@ public class Room : MonoBehaviour
 {
     public RoomType RoomType = RoomType.Room;
 
+    public int limit;
+
     public GameObject DoorU;
     public GameObject DoorR;
     public GameObject DoorD;

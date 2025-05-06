@@ -1948,6 +1948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoomType: 2
+  limit: 1
   DoorU: {fileID: 0}
   DoorR: {fileID: 0}
   DoorD: {fileID: 343832886427291780}

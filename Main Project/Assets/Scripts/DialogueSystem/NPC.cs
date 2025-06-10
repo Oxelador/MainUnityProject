@@ -1,27 +1,24 @@
 using UnityEngine;
 
-public class NPC : MonoBehaviour
+public class NPC : MonoBehaviour, IInteractable
 {
     public string[] dialogue;
     public string npcName;
 
-    private bool isInteracted = false;
-    private bool isNear = false;
+    public bool IsInteracted { get; set; }
 
-    public bool IsInteracted
+    private void Start()
     {
-        get => isInteracted;
-        set => isInteracted = value;
+        IsInteracted = false;
     }
 
-    public bool IsNear
+    public string GetDescription()
     {
-        get => isNear;
-        set => isNear = value;
+        return $"Talk to {npcName}";
     }
 
     public void Interact()
     {
-        DialogueSystem.Instance.AddNewDialogue(dialogue, npcName);
+        DialogueSystem.Instance.AddNewDialogue(dialogue, this);
     }
 }

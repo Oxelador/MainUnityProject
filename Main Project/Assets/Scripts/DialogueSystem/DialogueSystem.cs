@@ -8,8 +8,8 @@ public class DialogueSystem : MonoBehaviour
 {
     public static DialogueSystem Instance { get; set; }
     public GameObject dialoguePanel;
-    [HideInInspector] public string npcName;
     [HideInInspector] public List<string> dialogueLines = new List<string>();
+    private NPC npc;
 
     Button continueButton;
     TextMeshProUGUI dialogueText, nameText;
@@ -33,12 +33,12 @@ public class DialogueSystem : MonoBehaviour
         }
     }
 
-    public void AddNewDialogue(string[] lines, string npcName)
+    public void AddNewDialogue(string[] lines, NPC npc)
     {
         dialogueIndex = 0;
         dialogueLines = new List<string>(lines.Length);
         dialogueLines.AddRange(lines);
-        this.npcName = npcName;
+        this.npc = npc;
 
         CreateDialogue();
     }
@@ -46,7 +46,7 @@ public class DialogueSystem : MonoBehaviour
     public void CreateDialogue()
     {
         dialogueText.text = dialogueLines[dialogueIndex];
-        nameText.text = npcName;
+        nameText.text = npc.npcName;
         dialoguePanel.SetActive(true);
     }
 
@@ -60,6 +60,7 @@ public class DialogueSystem : MonoBehaviour
         else
         {
             dialoguePanel.SetActive(false);
+            npc.IsInteracted = false;
         }
     }
 }

@@ -37,7 +37,7 @@ public class Health : MonoBehaviour
     }
 
     private float _maxHealth;
-    public float _currentHealth;
+    private float _currentHealth;
     private float _armor;
     private bool isDead = false;
 
@@ -111,9 +111,12 @@ public class Health : MonoBehaviour
 
         if (tag == "Enemy")
         {
+            LootBag lootBag = GetComponent<LootBag>();
+            lootBag?.InstantiateLoot(transform.position);
             _collider.enabled = false;
             GetComponent<EnemyController>().enabled = false;
             GetComponent<NavMeshAgent>().isStopped = true;
+            GetComponent<CharacterCombatController>().IsDead = true;
         }
 
         _animator.SetTrigger("death");

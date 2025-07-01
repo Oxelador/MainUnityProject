@@ -1,41 +1,48 @@
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
+    public enum ControlType { Joystick, Keyboard }
+    [SerializeField] private ControlType _controlType = ControlType.Joystick;
+
     [SerializeField] private Animator _anim;
-    [SerializeField] private Rigidbody _rb;
     [SerializeField] private FixedJoystick _joystick;
     [SerializeField] private float _speed = 5;
     [SerializeField] private float _turnSpeed = 360;
-    private Vector3 _input;
 
-    private void Start()
+    private Vector3 _input;
+    private CharacterController _characterController;
+
+    private void Awake()
     {
         _anim.applyRootMotion = false;
+        _characterController = GetComponent<CharacterController>();
     }
 
     void Update()
     {
         GatherInput();
         Look();
-    }
-
-    void FixedUpdate()
-    {
         Move();
     }
 
     void GatherInput()
     {
-        _input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        //_input = new Vector3(_joystick.Horizontal, 0, _joystick.Vertical);
+        if(_controlType == ControlType.Joystick && _joystick != null)
+        {
+            _input = new Vector3(_joystick.Horizontal, 0, _joystick.Vertical);
+        }
+        else
+        {
+            _input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        }
     }
 
     void Look()
     {
         if (_input != Vector3.zero)
         {
-
             var rot = Quaternion.LookRotation(_input.ToIso(), Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, _turnSpeed * Time.deltaTime);
 
@@ -47,7 +54,8 @@ public class PlayerController : MonoBehaviour
         if (_input != Vector3.zero)
         {
             _anim.SetBool("run", true);
-            _rb.MovePosition(transform.position + transform.forward * _input.normalized.magnitude * _speed * Time.deltaTime);
+            Vector3 move = transform.forward * _input.normalized.magnitude * _speed * Time.deltaTime;
+            _characterController.Move(move);
         }
         else
         {

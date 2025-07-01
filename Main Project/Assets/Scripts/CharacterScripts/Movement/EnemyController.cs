@@ -1,7 +1,8 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(CapsuleCollider))]
 public class EnemyController : MonoBehaviour
 {
     private NavMeshAgent agent;
@@ -20,7 +21,6 @@ public class EnemyController : MonoBehaviour
     //Attacking
     public float timeBetweenAttacks;
     bool alreadyAttacked;
-    public GameObject projectile;
 
     //States
     public float sightRange, attackRange;
@@ -64,8 +64,8 @@ public class EnemyController : MonoBehaviour
 
     private void SearchWalkPoint()
     {
-        float randomZ = UnityEngine.Random.Range(-walkPointRange, walkPointRange);
-        float randomX = UnityEngine.Random.Range(-walkPointRange, walkPointRange);
+        float randomZ = Random.Range(-walkPointRange, walkPointRange);
+        float randomX = Random.Range(-walkPointRange, walkPointRange);
         walkPoint = new Vector3(transform.position.x + randomX,
                                 transform.position.y,
                                 transform.position.z + randomZ);
@@ -88,13 +88,8 @@ public class EnemyController : MonoBehaviour
 
         if(!alreadyAttacked)
         {
-            /// Attack code here, e.g. shooting or melee attack
-            //Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            //rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-            //rb.AddForce(transform.up * 8f, ForceMode.Impulse);
-            combatController._weapon.PerformAttack(combatController.CalculateDamage());
+            combatController._weapon.PerformAttack(combatController.CalculateDamage(), player);
             animator.SetTrigger("attack");
-            ///
 
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);

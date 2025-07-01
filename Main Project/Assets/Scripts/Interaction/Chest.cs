@@ -5,6 +5,7 @@ using UnityEngine;
 public class Chest : MonoBehaviour, IInteractable
 {
     private Animator _animator;
+    private LootBag _lootBag;
 
     public bool IsInteracted { get; set; }
 
@@ -12,6 +13,7 @@ public class Chest : MonoBehaviour, IInteractable
     {
         IsInteracted = false;
         _animator = GetComponent<Animator>();
+        _lootBag = GetComponent<LootBag>();
     }
 
     public string GetDescription()
@@ -21,6 +23,7 @@ public class Chest : MonoBehaviour, IInteractable
 
     public void Interact()
     {
+        _lootBag.InstantiateLoot(transform.position);
         _animator.SetBool("isChestInteracted", true);
     }
 }

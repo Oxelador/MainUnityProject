@@ -2,24 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Health))]
+[RequireComponent(typeof(CharacterStats))]
+[RequireComponent(typeof(WeaponEventProxy))]
 public class CharacterCombatController : MonoBehaviour
 {
-    public MeleeWeapon _weapon;
+    public GameObject _weaponSpot;
+    public IWeapon _weapon;
+    public float fireRate = 4f;
+    
+    public bool IsDead { get; set; } = false;
 
+    private Animator _animator;
     private CharacterStats _characterStats;
-    public Animator animator;
+    private float timeToFire;
 
     void Start()
     {
+        _animator = GetComponent<Animator>();
         _characterStats = GetComponent<CharacterStats>();
+        _weapon = _weaponSpot.GetComponentInChildren<IWeapon>();
     }
 
     void Update()
     {
-        if (this.CompareTag("Player") && Input.GetKeyDown(KeyCode.Mouse0))
+        if(IsDead) return;
+        if (this.CompareTag("Player") && Input.GetKey(KeyCode.Mouse0) && Time.time >= timeToFire)
         {
-            _weapon.PerformAttack(CalculateDamage());
-            animator.SetTrigger("attack");
+            timeToFire = Time.time + 1f / fireRate;
+            _weapon.PerformAttack(CalculateDamage(), null);
+            _animator.SetTrigger("attack");
         }
     }
 

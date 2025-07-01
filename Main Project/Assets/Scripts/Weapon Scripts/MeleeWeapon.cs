@@ -15,7 +15,7 @@ public class MeleeWeapon : MonoBehaviour, IWeapon
         owner = transform.root.gameObject;
     }
 
-    public void PerformAttack(float damage)
+    public void PerformAttack(float damage, Transform target)
     {
         Damage = damage;
         _isAttacking = true;
@@ -34,9 +34,15 @@ public class MeleeWeapon : MonoBehaviour, IWeapon
         }
     }
 
+    public void StartAttack()
+    {
+
+    }
+
     public void EndAttack()
     {
         _hasDealtDamage = false;
         _isAttacking = false;
     }
+
 }

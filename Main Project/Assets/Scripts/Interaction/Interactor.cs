@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Interactor : MonoBehaviour
 {
@@ -9,6 +8,7 @@ public class Interactor : MonoBehaviour
 
     public GameObject interactionUI;
     public TextMeshProUGUI interactionText;
+    private float interactionRange;
 
     private void Start()
     {
@@ -22,31 +22,42 @@ public class Interactor : MonoBehaviour
 
     void InteractionRay()
     {
-        Ray ray = new Ray(InteractorSource.position, InteractorSource.forward);
-        RaycastHit hit;
+        Collider[] colliders = Physics.OverlapSphere(InteractorSource.position, InteractionDistance);
 
-
-        if (Physics.Raycast(ray, out hit, InteractionDistance))
+        IInteractable interactable = null;
+        foreach (var collider in colliders)
         {
-            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
-
+            interactable = collider.GetComponent<IInteractable>();
             if (interactable != null && !interactable.IsInteracted)
             {
-                interactionText.text = interactable.GetDescription();
-
-                interactionUI.SetActive(true);
-
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    interactable.IsInteracted = true;
-                    interactable.Interact();
-                    interactionUI.SetActive(false);
-                }
+                break;
             }
+            interactable = null;
+        }
+
+        if (interactable != null)
+        {
+
+            interactionText.text = interactable.GetDescription();
+            interactionUI.SetActive(true);
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                interactable.IsInteracted = true;
+                interactable.Interact();
+                interactionUI.SetActive(false);
+            }
+
         }
         else
         {
             interactionUI.SetActive(false);
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(InteractorSource.position, interactionRange);
     }
 }

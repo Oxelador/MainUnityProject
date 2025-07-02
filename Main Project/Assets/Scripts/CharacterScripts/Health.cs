@@ -28,11 +28,8 @@ public class Health : MonoBehaviour
                 _currentHealth = value;
                 UpdateHealth?.Invoke(_currentHealth);
             }
-            if (this.gameObject.tag == "Player")
-            {
-                float _currentHealthAsPercantage = (float)_currentHealth / _maxHealth;
-                UpdateHealth?.Invoke(_currentHealthAsPercantage);
-            }
+            float _currentHealthAsPercantage = (float)_currentHealth / _maxHealth;
+            UpdateHealth?.Invoke(_currentHealthAsPercantage);
         }
     }
 
@@ -48,14 +45,7 @@ public class Health : MonoBehaviour
 
     void Start()
     {
-        if(gameObject.tag == "Player")
-        {
-            _animator = GetComponentInChildren<Animator>();
-        }
-        else
-        {
-            _animator = GetComponent<Animator>();
-        }
+        _animator = GetComponent<Animator>();
         _collider = GetComponent<Collider>();
         _characterStats = GetComponent<CharacterStats>();
 
@@ -117,6 +107,7 @@ public class Health : MonoBehaviour
             GetComponent<EnemyController>().enabled = false;
             GetComponent<NavMeshAgent>().isStopped = true;
             GetComponent<CharacterCombatController>().IsDead = true;
+            GetComponentInChildren<FloatingHealthBar>()?.gameObject.SetActive(false);
         }
 
         _animator.SetTrigger("death");

@@ -27,7 +27,8 @@ public class FloatingHealthBar : MonoBehaviour
 
     public void UpdateHealthBar(float value)
     {
-        _slider.value = value;
+        float currentHealthAsPercantage = (float)value / _health.MaxHealth;
+        _slider.value = currentHealthAsPercantage;
     }
 
     private void Update()

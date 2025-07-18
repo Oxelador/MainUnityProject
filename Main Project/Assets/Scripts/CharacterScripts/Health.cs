@@ -5,6 +5,8 @@ using UnityEngine.AI;
 public class Health : MonoBehaviour
 {
     public event Action<float> UpdateHealth;
+    public event Action<float> OnDamageTaken;
+    public bool IsDead { get; private set; } = false;
 
     public float MaxHealth
     {
@@ -28,20 +30,16 @@ public class Health : MonoBehaviour
                 _currentHealth = value;
                 UpdateHealth?.Invoke(_currentHealth);
             }
-            float _currentHealthAsPercantage = (float)_currentHealth / _maxHealth;
-            UpdateHealth?.Invoke(_currentHealthAsPercantage);
         }
     }
-
-    private float _maxHealth;
-    private float _currentHealth;
-    private float _armor;
-    private bool isDead = false;
 
     private Animator _animator;
     private Collider _collider;
     private CharacterStats _characterStats;
 
+    private float _maxHealth;
+    private float _currentHealth;
+    private float _armor;
 
     void Start()
     {
@@ -53,11 +51,14 @@ public class Health : MonoBehaviour
         _currentHealth = _maxHealth;
         _armor = _characterStats.GetStatValueByName(StatName.Armor);
         //Debug.Log($"{this.gameObject.name} Health is {_maxHealth}");
+
+        //int count = UpdateHealth?.GetInvocationList().Length ?? 0;
+        //Debug.Log($"У объекта {this.name} Подписок на UpdateHealth: {count}");
     }
 
     public void TakeDamage(float amount)
     {
-        if (isDead) return; // Prevent further damage if already dead
+        if (IsDead) return; // Prevent further damage if already dead
 
         float armorHealthLimitPercentage = (_maxHealth / 100) * 35;
         float amountAfterArmor = amount - _armor;
@@ -74,9 +75,11 @@ public class Health : MonoBehaviour
         else
         {
             CurrentHealth -= amountAfterArmor;
+
             _animator.SetTrigger("isHitted");
             Debug.Log(this.name + " take " + amountAfterArmor + " damage.");
 
+            OnDamageTaken?.Invoke(amountAfterArmor);
         }
 
     }
@@ -93,9 +96,9 @@ public class Health : MonoBehaviour
 
     void Death()
     {
-        if (isDead) return; // Prevent multiple death calls
+        if (IsDead) return; // Prevent multiple death calls
 
-        isDead = true;
+        IsDead = true;
         UpdateHealth?.Invoke(0);
         Debug.Log(this.name + " is die!");
 
@@ -106,7 +109,6 @@ public class Health : MonoBehaviour
             _collider.enabled = false;
             GetComponent<EnemyController>().enabled = false;
             GetComponent<NavMeshAgent>().isStopped = true;
-            GetComponent<CharacterCombatController>().IsDead = true;
             GetComponentInChildren<FloatingHealthBar>()?.gameObject.SetActive(false);
         }
 

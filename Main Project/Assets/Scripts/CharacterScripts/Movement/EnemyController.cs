@@ -5,33 +5,33 @@ using UnityEngine.AI;
 [RequireComponent(typeof(CapsuleCollider))]
 public class EnemyController : MonoBehaviour
 {
-    private NavMeshAgent agent;
-    private Animator animator;
-
-    private Transform player;
-    private CharacterCombatController combatController;
+    private NavMeshAgent _agent;
+    private Animator _animator;
+    private Transform _player;
+    private CharacterCombatController _combatController;
 
     public LayerMask whatIsGround, whatIsPlayer;
 
-    //Patroling
-    public Vector3 walkPoint;
+    [Header("Patrol Settings")]
     bool walkPointSet;
+    public Vector3 walkPoint;
     public float walkPointRange;
 
-    //Attacking
-    public float timeBetweenAttacks;
+    [Header("Attack Settings")]
     bool alreadyAttacked;
+    public float timeBetweenAttacks;
+    public float sightRange, attackRange;
 
     //States
-    public float sightRange, attackRange;
+    [Header("Range")]
     public bool playerInSightRange, playerInAttackRange;
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        combatController = GetComponent<CharacterCombatController>();
-        agent = GetComponent<NavMeshAgent>();
+        _agent = GetComponent<NavMeshAgent>();
+        _animator = GetComponent<Animator>();
+        _player = GameObject.FindGameObjectWithTag("Player").transform;
+        _combatController = GetComponent<EnemyCombatController>();
     }
 
     private void Update()
@@ -43,8 +43,8 @@ public class EnemyController : MonoBehaviour
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInAttackRange && playerInSightRange) AttackPlayer();
 
-        bool isRunning = agent.velocity.magnitude > 0.1f;
-        animator.SetBool("run", isRunning);
+        bool isRunning = _agent.velocity.magnitude > 0.1f;
+        _animator.SetBool("run", isRunning);
     }
 
     private void Patroling()
@@ -53,7 +53,7 @@ public class EnemyController : MonoBehaviour
 
         if (walkPointSet)
         {
-            agent.SetDestination(walkPoint);
+            _agent.SetDestination(walkPoint);
         }
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
@@ -77,19 +77,19 @@ public class EnemyController : MonoBehaviour
 
     private void ChasePlayer()
     {
-        agent.SetDestination(player.position);
+        _agent.SetDestination(_player.position);
     }
 
     private void AttackPlayer()
     {
-        agent.SetDestination(transform.position);
+        _agent.SetDestination(transform.position);
 
-        transform.LookAt(player);
+        transform.LookAt(_player);
 
         if(!alreadyAttacked)
         {
-            combatController._weapon.PerformAttack(combatController.CalculateDamage(), player);
-            animator.SetTrigger("attack");
+            _combatController._weapon.PerformAttack(_combatController.CalculateDamage(), _player);
+            _animator.SetTrigger("attack");
 
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);

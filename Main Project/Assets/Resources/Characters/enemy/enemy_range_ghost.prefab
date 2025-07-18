@@ -553,11 +553,11 @@ GameObject:
   - component: {fileID: 6127136893510805473}
   - component: {fileID: 4495221801607231991}
   - component: {fileID: 412889944780953486}
-  - component: {fileID: 3949992964160084672}
   - component: {fileID: 1471613231717469899}
   - component: {fileID: 5524752769675220432}
   - component: {fileID: 1225601921055296521}
   - component: {fileID: 1991073865483728662}
+  - component: {fileID: 4666262982648260755}
   m_Layer: 0
   m_Name: enemy_range_ghost
   m_TagString: Enemy
@@ -620,10 +620,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 128
   whatIsPlayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 64
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 3
   timeBetweenAttacks: 4
@@ -676,20 +676,6 @@ CapsuleCollider:
   m_Height: 0.8720309
   m_Direction: 1
   m_Center: {x: -0.01712219, y: 0.4352634, z: 0}
---- !u!114 &3949992964160084672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5156886225008102683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cdcf67e19e8e104c90b0ed5f85d646f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _weaponSpot: {fileID: 647283529297583457}
-  fireRate: 4
 --- !u!114 &1471613231717469899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -747,6 +733,20 @@ MonoBehaviour:
   lootList:
   - {fileID: 11400000, guid: 2bc9d3a3ccd8e004ea77938c0694d50c, type: 2}
   dropForce: 150
+--- !u!114 &4666262982648260755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5156886225008102683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bc33e5989ac7524d91c7209ac0b6dc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireRate: 4
+  _weaponSpot: {fileID: 647283529297583457}
 --- !u!1 &6280625974722570203
 GameObject:
   m_ObjectHideFlags: 0
@@ -1351,7 +1351,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootPoint: {fileID: 3865564312878984190}
-  projectile: {fileID: 5222094038002074733, guid: 758b44ef253a22542853a4fb1693fda4, type: 3}
+  projectile: {fileID: 5222094038002074733, guid: 758b44ef253a22542853a4fb1693fda4,
+    type: 3}
   projectileSpeed: 16
 --- !u!1 &8863597593127088218
 GameObject:

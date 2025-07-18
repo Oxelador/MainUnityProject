@@ -5,18 +5,26 @@ public class PlayerController : MonoBehaviour
 {
     public enum ControlType { Joystick, Keyboard }
     [SerializeField] private ControlType _controlType = ControlType.Joystick;
+    public bool IsMovementLocked { get; set; } = false;
 
-    [SerializeField] private Animator _anim;
-    [SerializeField] private FixedJoystick _joystick;
+    [Header("References")]
+    private FixedJoystick _joystick;
+    private Animator _animator;
+    private CharacterController _characterController;
+
+    [Header("Movement Settings")]
     [SerializeField] private float _speed = 5;
     [SerializeField] private float _turnSpeed = 360;
 
+    public bool IsMoving { get; private set; } = false;
+
     private Vector3 _input;
-    private CharacterController _characterController;
+
 
     private void Awake()
     {
-        _anim.applyRootMotion = false;
+        _joystick = FindObjectOfType<FixedJoystick>();
+        _animator = GetComponent<Animator>();
         _characterController = GetComponent<CharacterController>();
     }
 
@@ -29,7 +37,13 @@ public class PlayerController : MonoBehaviour
 
     void GatherInput()
     {
-        if(_controlType == ControlType.Joystick && _joystick != null)
+        if (IsMovementLocked)
+        {
+            _input = Vector3.zero;
+            return;
+        }
+
+        if (_controlType == ControlType.Joystick && _joystick != null)
         {
             _input = new Vector3(_joystick.Horizontal, 0, _joystick.Vertical);
         }
@@ -51,15 +65,34 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
+        if (IsMovementLocked)
+        {
+            _animator.SetBool("run", false);
+            return;
+        }
+
         if (_input != Vector3.zero)
         {
-            _anim.SetBool("run", true);
+            IsMoving = true;
+            _animator.SetBool("run", true);
             Vector3 move = transform.forward * _input.normalized.magnitude * _speed * Time.deltaTime;
             _characterController.Move(move);
         }
         else
         {
-            _anim.SetBool("run", false);
+            IsMoving = false;
+            _animator.SetBool("run", false);
         }
+    }
+
+    public void LockMovement()
+    {
+        IsMovementLocked = true;
+        IsMoving = false;
+    }
+
+    public void UnlockMovement()
+    {
+        IsMovementLocked = false;
     }
 }

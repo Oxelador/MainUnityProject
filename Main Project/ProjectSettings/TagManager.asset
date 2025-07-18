@@ -4,6 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - FlythroughCam
+  - Gold
   - Enemy
   - Projectile
   layers:
@@ -13,8 +15,8 @@ TagManager:
   - 
   - Water
   - UI
-  - WhatIsGround
-  - WhatIsPlayer
+  - Player
+  - Ground
   - 
   - 
   - 

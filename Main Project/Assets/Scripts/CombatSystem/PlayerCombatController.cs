@@ -18,9 +18,7 @@ public class PlayerCombatController : CharacterCombatController
     {
         if (_health.IsDead) return;
 
-        bool isAttacking = _animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack");
-
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !isAttacking)
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             PerformAttack();
         }

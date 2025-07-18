@@ -26,7 +26,6 @@ public class FloatingCombatText : MonoBehaviour
 
     public void ShowFloatingText(float value)
     {
-        Debug.Log($"{gameObject.transform.parent.name} вызвал ShowFloatingText");
         var text = Instantiate(_floatingTextPrefab,
             transform.position + offset,
             _camera.transform.rotation,

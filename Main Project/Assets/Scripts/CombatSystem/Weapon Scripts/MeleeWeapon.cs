@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MeleeWeapon : MonoBehaviour, IWeapon
@@ -6,57 +7,48 @@ public class MeleeWeapon : MonoBehaviour, IWeapon
 
     private GameObject _owner;
     private bool _isAttacking;
-    [SerializeField] private float _attackRadius = 0.5f;
-
-    public Transform attackPoint;
-
-    private Collider[] _hitColliders;
+    private HashSet<GameObject> _damagedEnemies = new HashSet<GameObject>();
 
     private void Awake()
     {
         _owner = transform.root.gameObject;
     }
 
-    private void Update()
-    {
-        _hitColliders = Physics.OverlapSphere(attackPoint.position, _attackRadius);
-    }
-
     public void PerformAttack(float damage, Transform target)
     {
         Damage = damage;
         _isAttacking = true;
+    }
 
+    private void OnTriggerEnter(Collider collider)
+    {
+        if (collider.gameObject == _owner)
+            return;
 
-        foreach (var collider in _hitColliders)
+        if (!_isAttacking)
+            return;
+
+        if (collider.gameObject.CompareTag("Enemy"))
         {
-            if (!_isAttacking) continue;
-            if (collider.gameObject == _owner) continue;
+            if(_damagedEnemies.Contains(collider.gameObject))
+                return;
 
-            if (collider.gameObject.tag == "Enemy")
+            var health = collider.gameObject.GetComponent<Health>();
+            if (health != null)
             {
-                var health = collider.GetComponent<Health>();
-                if (health != null)
-                {
-                    health.TakeDamage(Damage);
-                }
+                health.TakeDamage(Damage);
+                _damagedEnemies.Add(collider.gameObject);
             }
         }
     }
 
     public void StartAttack()
     {
-
     }
 
     public void EndAttack()
     {
         _isAttacking = false;
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPoint.position, _attackRadius);
+        _damagedEnemies.Clear();
     }
 }

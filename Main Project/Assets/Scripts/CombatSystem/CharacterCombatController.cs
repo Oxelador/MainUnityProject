@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Health))]
 [RequireComponent(typeof(CharacterStats))]
-[RequireComponent(typeof(WeaponEventProxy))]
+[RequireComponent(typeof(AnimationEventProxy))]
 public abstract class CharacterCombatController : MonoBehaviour
 {
     [Header("References")]

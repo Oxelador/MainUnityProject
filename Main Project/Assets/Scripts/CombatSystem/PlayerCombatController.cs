@@ -14,16 +14,6 @@ public class PlayerCombatController : CharacterCombatController
         _playerController = GetComponent<PlayerController>();
     }
 
-    void Update()
-    {
-        if (_health.IsDead) return;
-
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            PerformAttack();
-        }
-    }
-
     public override void PerformAttack()
     {
         _weapon.PerformAttack(CalculateDamage(), null);

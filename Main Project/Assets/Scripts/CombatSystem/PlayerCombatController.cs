@@ -1,76 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Unity.VisualScripting;
 
 public class PlayerCombatController : CharacterCombatController
 {
-    private PlayerController _playerController;
 
-    private int _attackCount = 0;
+    public override void Awake()
+    {
+        base.Awake();
+    }
 
     public override void Start()
     {
         base.Start();
-        _playerController = GetComponent<PlayerController>();
     }
 
     public override void PerformAttack()
     {
-        _weapon.PerformAttack(CalculateDamage(), null);
-
-        bool isAttackMoving = _animator.GetCurrentAnimatorStateInfo(0).IsName("Attack in Move");
-
-        if (!_playerController.IsMoving && !isAttackMoving)
-        {
-            _attackCount++;
-
-            if (_attackCount == 1)
-            {
-                _animator.SetInteger("intAttackPhase", 1);
-            }
-        }
-        else if (_playerController.IsMoving && !isAttackMoving)
-        {
-            _animator.SetTrigger("attack");
-        }
+        
     }
 
-    public void CheckAttackPhase()
+    public void HandleLightAttack()
     {
-        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Sword And Shield Slash(0)"))
-        {
-            if (_attackCount > 1)
-            {
-                _animator.SetInteger("intAttackPhase", 2);
-            }
-            else
-            {
-                ResetAttackPhase();
-            }
-        }
-        else if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Sword And Shield Slash(1)"))
-        {
-            if (_attackCount > 2)
-            {
-                _animator.SetInteger("intAttackPhase", 3);
-            }
-            else
-            {
-                ResetAttackPhase();
-            }
-        }
-        else if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Sword And Shield Slash(2)"))
-        {
-            if (_attackCount >= 3)
-            {
-                ResetAttackPhase();
-            }
-        }
+        animatorHandler.PlayTargetAnimation(rightWeapon.OH_Light_Attack_1, true);
     }
 
-    private void ResetAttackPhase()
+    public void HandleHeavyAttack()
     {
-        _attackCount = 0;
-        _animator.SetInteger("intAttackPhase", 0);
+        animatorHandler.PlayTargetAnimation(rightWeapon.OH_Heavy_Attack_1, true);
     }
 }

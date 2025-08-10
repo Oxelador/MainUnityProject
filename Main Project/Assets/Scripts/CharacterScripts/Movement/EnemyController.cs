@@ -5,10 +5,10 @@ using UnityEngine.AI;
 [RequireComponent(typeof(CapsuleCollider))]
 public class EnemyController : MonoBehaviour
 {
-    private NavMeshAgent _agent;
-    private Animator _animator;
-    private Transform _player;
-    private CharacterCombatController _combatController;
+    NavMeshAgent agent;
+    Animator animator;
+    Transform player;
+    EnemyCombatController combatController;
 
     public LayerMask whatIsGround, whatIsPlayer;
 
@@ -28,10 +28,10 @@ public class EnemyController : MonoBehaviour
 
     private void Awake()
     {
-        _agent = GetComponent<NavMeshAgent>();
-        _animator = GetComponent<Animator>();
-        _player = GameObject.FindGameObjectWithTag("Player").transform;
-        _combatController = GetComponent<EnemyCombatController>();
+        agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        combatController = GetComponent<EnemyCombatController>();
     }
 
     private void Update()
@@ -43,8 +43,8 @@ public class EnemyController : MonoBehaviour
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInAttackRange && playerInSightRange) AttackPlayer();
 
-        bool isRunning = _agent.velocity.magnitude > 0.1f;
-        _animator.SetBool("run", isRunning);
+        bool isRunning = agent.velocity.magnitude > 0.1f;
+        animator.SetBool("run", isRunning);
     }
 
     private void Patroling()
@@ -53,7 +53,7 @@ public class EnemyController : MonoBehaviour
 
         if (walkPointSet)
         {
-            _agent.SetDestination(walkPoint);
+            agent.SetDestination(walkPoint);
         }
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
@@ -77,19 +77,19 @@ public class EnemyController : MonoBehaviour
 
     private void ChasePlayer()
     {
-        _agent.SetDestination(_player.position);
+        agent.SetDestination(player.position);
     }
 
     private void AttackPlayer()
     {
-        _agent.SetDestination(transform.position);
+        agent.SetDestination(transform.position);
 
-        transform.LookAt(_player);
+        transform.LookAt(player);
 
         if(!alreadyAttacked)
         {
-            _combatController._weapon.PerformAttack(_combatController.CalculateDamage(), _player);
-            _animator.SetTrigger("attack");
+            combatController.PerformAttack();
+            animator.SetTrigger("attack");
 
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);

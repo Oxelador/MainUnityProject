@@ -2,31 +2,42 @@ using UnityEngine;
 
 [RequireComponent(typeof(Health))]
 [RequireComponent(typeof(CharacterStats))]
-[RequireComponent(typeof(AnimationEventProxy))]
 public abstract class CharacterCombatController : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private GameObject _weaponSpot;
-    protected CharacterStats _characterStats;
-    protected Animator _animator;
-    protected Health _health;
-    public IWeapon _weapon;
+    protected WeaponSlotManager weaponSlotManager;
+    protected CharacterStats characterStats;
+    protected AnimatorHandler animatorHandler;
+    protected Health health;
+    protected IWeapon weapon;
+
+    public WeaponItem rightWeapon;
+    public WeaponItem leftWeapon;
+
+    public virtual void Awake()
+    {
+        weaponSlotManager = GetComponent<WeaponSlotManager>();
+        characterStats = GetComponent<CharacterStats>();
+        health = GetComponent<Health>();
+    }
 
     public virtual void Start()
     {
-        _characterStats = GetComponent<CharacterStats>();
-        _animator = GetComponent<Animator>();
-        _health = GetComponent<Health>();
-        _weapon = _weaponSpot.GetComponentInChildren<IWeapon>();
+        animatorHandler = GetComponent<AnimatorHandler>();
+
+        weaponSlotManager.LoadWeaponOnSlot(rightWeapon, false);
+        weaponSlotManager.LoadWeaponOnSlot(leftWeapon, true);
+
+        weapon = rightWeapon.modelPrefab.gameObject.GetComponent<IWeapon>();
     }
 
     public abstract void PerformAttack();
 
     public float CalculateDamage()
     {
-        float damage = _characterStats.GetStatValueByName(StatName.Strength);
-        float critChance = _characterStats.GetStatValueByName(StatName.CritChance);
-        float critDamage = damage * (1f + _characterStats.GetStatValueByName(StatName.CritMultiplier) / 100f);
+        float damage = characterStats.GetStatValueByName(StatName.Strength);
+        float critChance = characterStats.GetStatValueByName(StatName.CritChance);
+        float critDamage = damage * (1f + characterStats.GetStatValueByName(StatName.CritMultiplier) / 100f);
 
         if (Random.Range(0f, 100f) <= critChance)
         {

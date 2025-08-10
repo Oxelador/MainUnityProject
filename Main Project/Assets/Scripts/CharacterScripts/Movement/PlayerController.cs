@@ -6,41 +6,49 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public enum ControlType { Joystick, Keyboard }
-    [SerializeField] private ControlType _controlType = ControlType.Joystick;
+    [SerializeField] private ControlType controlType = ControlType.Joystick;
     public bool IsMovementLocked { get; set; } = false;
 
     [Header("References")]
-    private FixedJoystick _joystick;
-    private Animator _animator;
-    private CharacterController _characterController;
+    FixedJoystick joystick;
+    CharacterController characterController;
+    AnimatorHandler animatorHandler;
 
     [Header("Movement Settings")]
-    [SerializeField] private float _speed = 5;
-    [SerializeField] private float _turnSpeed = 360;
+    [SerializeField] float speed = 5;
+    [SerializeField] float turnSpeed = 360;
+    public bool IsMoving { get; private set; } = false;
+    private Vector3 input;
+
+    [Header("Gravity Settings")]
+    [SerializeField] float gravity = -9.81f;
+    [SerializeField] float groundCheckDistance = 0.1f;
+    [SerializeField] LayerMask groundMask;
+    float verticalVelocity = 0f;
+    bool isGrounded = false;
 
     [Header("Dash Settings")]
-    [SerializeField] private CooldownUI _cooldownUI;
-    [SerializeField] private float _dashSpeed;
-    [SerializeField] private float _dashTime;
-
+    [SerializeField] CooldownUI cooldownUI;
+    [SerializeField] float dashSpeed = 2.5f;
+    [SerializeField] float dashTime = 0.25f;
     public float DashCooldown { get; private set; } = 2f;
-    private bool _canDash = true;
-    private float _lastDashTime = -Mathf.Infinity;
+    bool canDash = true;
+    float lastDashTime = -Mathf.Infinity;
 
-    public bool IsMoving { get; private set; } = false;
-
-    private Vector3 _input;
-
+    public bool isInteracting;
 
     private void Awake()
     {
-        _joystick = FindObjectOfType<FixedJoystick>();
-        _animator = GetComponent<Animator>();
-        _characterController = GetComponent<CharacterController>();
+        joystick = FindObjectOfType<FixedJoystick>();
+        characterController = GetComponent<CharacterController>();
+        animatorHandler = GetComponent<AnimatorHandler>();
+        animatorHandler.Initialize();
     }
 
     void Update()
     {
+        isInteracting = animatorHandler.anim.GetBool("isInteracting");
+
         GatherInput();
         Look();
         Move();
@@ -50,26 +58,26 @@ public class PlayerController : MonoBehaviour
     {
         if (IsMovementLocked)
         {
-            _input = Vector3.zero;
+            input = Vector3.zero;
             return;
         }
 
-        if (_controlType == ControlType.Joystick && _joystick != null)
+        if (controlType == ControlType.Joystick && joystick != null)
         {
-            _input = new Vector3(_joystick.Horizontal, 0, _joystick.Vertical);
+            input = new Vector3(joystick.Horizontal, 0, joystick.Vertical);
         }
         else
         {
-            _input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+            input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         }
     }
 
     void Look()
     {
-        if (_input != Vector3.zero)
+        if (input != Vector3.zero)
         {
-            var rot = Quaternion.LookRotation(_input.ToIso(), Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, _turnSpeed * Time.deltaTime);
+            var rot = Quaternion.LookRotation(input.ToIso(), Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, turnSpeed * Time.deltaTime);
 
         }
     }
@@ -78,47 +86,69 @@ public class PlayerController : MonoBehaviour
     {
         if (IsMovementLocked)
         {
-            _animator.SetBool("run", false);
+            animatorHandler.anim.SetBool("run", false);
             return;
         }
 
-        if (_input != Vector3.zero)
+        // Ground Check
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, groundMask);
+
+        if(isGrounded && verticalVelocity < 0)
+        {
+            verticalVelocity = -2f;
+        }
+        else
+        {
+            verticalVelocity += gravity * Time.deltaTime;
+        }
+
+        Vector3 move = Vector3.zero;
+        if (input != Vector3.zero)
         {
             IsMoving = true;
-            _animator.SetBool("run", true);
-            Vector3 move = transform.forward * _input.normalized.magnitude * _speed * Time.deltaTime;
-            _characterController.Move(move);
+            animatorHandler.anim.SetBool("run", true);
+            move = transform.forward * input.normalized.magnitude * speed;
         }
         else
         {
             IsMoving = false;
-            _animator.SetBool("run", false);
+            animatorHandler.anim.SetBool("run", false);
         }
+        move.y = verticalVelocity;
+
+        characterController.Move(move * Time.deltaTime);
     }
 
     public void Dash()
     {
-        if (_canDash && Time.time >= _lastDashTime + DashCooldown)
+        if(animatorHandler.anim.GetBool("isInteracting"))
+            return;
+
+        if (input != Vector3.zero)
         {
-            StartCoroutine(DashCoroutine());
-            _lastDashTime = Time.time;
+            if (canDash && Time.time >= lastDashTime + DashCooldown)
+            {
+                StartCoroutine(DashCoroutine());
+                animatorHandler.PlayTargetAnimation("Dash", true);
+                lastDashTime = Time.time;
+            }
         }
     }
 
     IEnumerator DashCoroutine()
     {
-        _canDash = false;
+        canDash = false;
         float startTime = Time.time;
 
-        while (Time.time < startTime + _dashTime)
+        while (Time.time < startTime + dashTime)
         {
-            _characterController.Move(_input.ToIso() * _dashSpeed * Time.deltaTime);
-            _cooldownUI.TriggerCooldown();
+            characterController.Move(input.ToIso() * dashSpeed * Time.deltaTime);
+            cooldownUI.TriggerCooldown();
             yield return null;
         }
 
         yield return new WaitForSeconds(DashCooldown);
-        _canDash = true;
+        canDash = true;
     }
 
     public void LockMovement()

@@ -4,71 +4,68 @@ using UnityEngine.AI;
 
 public class Health : MonoBehaviour
 {
+    [Header("References")]
+    Collider objectCollider;
+    CharacterStats characterStats;
+    AnimatorHandler animatorHandler;
+
+    //Events
     public event Action<float> UpdateHealth;
     public event Action<float> OnDamageTaken;
-    public bool IsDead { get; private set; } = false;
 
+    public bool IsDead { get; private set; } = false;
     public float MaxHealth
     {
-        get { return _maxHealth; }
+        get { return maxHealth; }
         set
         {
             if (value <= 0)
             {
-                _maxHealth = 1;
+                maxHealth = 1;
             }
         }
     }
-
     public float CurrentHealth
     {
-        get { return _currentHealth; }
+        get { return currentHealth; }
         set
         {
-            if (_currentHealth != value)
+            if (currentHealth != value)
             {
-                _currentHealth = value;
-                UpdateHealth?.Invoke(_currentHealth);
+                currentHealth = value;
+                UpdateHealth?.Invoke(currentHealth);
             }
         }
     }
 
-    private Animator _animator;
-    private Collider _collider;
-    private CharacterStats _characterStats;
-
-    private float _maxHealth;
-    private float _currentHealth;
-    private float _armor;
+    float maxHealth;
+    float currentHealth;
+    float armor;
 
     void Start()
     {
-        _animator = GetComponent<Animator>();
-        _collider = GetComponent<Collider>();
-        _characterStats = GetComponent<CharacterStats>();
+        animatorHandler = GetComponent<AnimatorHandler>();
+        objectCollider = GetComponent<Collider>();
+        characterStats = GetComponent<CharacterStats>();
 
-        _maxHealth = _characterStats.GetStatValueByName(StatName.Survivability);
-        _currentHealth = _maxHealth;
-        _armor = _characterStats.GetStatValueByName(StatName.Armor);
-        //Debug.Log($"{this.gameObject.name} Health is {_maxHealth}");
-
-        //int count = UpdateHealth?.GetInvocationList().Length ?? 0;
-        //Debug.Log($"У объекта {this.name} Подписок на UpdateHealth: {count}");
+        maxHealth = characterStats.GetStatValueByName(StatName.Survivability);
+        currentHealth = maxHealth;
+        armor = characterStats.GetStatValueByName(StatName.Armor);
     }
 
     public void TakeDamage(float amount)
     {
         if (IsDead) return; // Prevent further damage if already dead
 
-        float armorHealthLimitPercentage = (_maxHealth / 100) * 35;
-        float amountAfterArmor = amount - _armor;
+        float armorHealthLimitPercentage = (maxHealth / 100) * 35;
+        float amountAfterArmor = amount - armor;
 
         if (amountAfterArmor >= armorHealthLimitPercentage)
         {
             amountAfterArmor = armorHealthLimitPercentage;
         }
 
-        if (_currentHealth <= 0 || amountAfterArmor > _currentHealth)
+        if (currentHealth <= 0 || amountAfterArmor > currentHealth)
         {
             Death();
         }
@@ -76,7 +73,7 @@ public class Health : MonoBehaviour
         {
             CurrentHealth -= amountAfterArmor;
 
-            _animator.SetTrigger("isHitted");
+            animatorHandler.anim.SetTrigger("isHitted");
             Debug.Log(this.name + " take " + amountAfterArmor + " damage.");
 
             OnDamageTaken?.Invoke(amountAfterArmor);
@@ -86,9 +83,9 @@ public class Health : MonoBehaviour
 
     public void Heal(float amount)
     {
-        if (amount >= _maxHealth)
+        if (amount >= maxHealth)
         {
-            CurrentHealth = _maxHealth;
+            CurrentHealth = maxHealth;
         }
 
         CurrentHealth += amount;
@@ -106,12 +103,12 @@ public class Health : MonoBehaviour
         {
             LootBag lootBag = GetComponent<LootBag>();
             lootBag?.InstantiateLoot(transform.position);
-            _collider.enabled = false;
+            objectCollider.enabled = false;
             GetComponent<EnemyController>().enabled = false;
             GetComponent<NavMeshAgent>().isStopped = true;
             GetComponentInChildren<FloatingHealthBar>()?.gameObject.SetActive(false);
         }
 
-        _animator.SetTrigger("death");
+        animatorHandler.anim.SetTrigger("death");
     }
 }

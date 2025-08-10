@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class EnemyCombatController : CharacterCombatController
 {
+    private Transform player;
+
+    public override void Awake()
+    {
+        base.Awake();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
 
     public override void Start()
     {
@@ -12,6 +19,6 @@ public class EnemyCombatController : CharacterCombatController
 
     public override void PerformAttack()
     {
-
+        weapon.PerformAttack(CalculateDamage(), player);
     }
 }

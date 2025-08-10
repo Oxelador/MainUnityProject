@@ -798,7 +798,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 4719064524757293850}
-  _smoothTime: 0
+  _smoothTime: 0.3
 --- !u!114 &563626044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4621,8 +4621,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7842657610116669144}
-        m_TargetAssemblyTypeName: PlayerCombatController, Assembly-CSharp
-        m_MethodName: PerformAttack
+        m_TargetAssemblyTypeName: CharacterCombatController, Assembly-CSharp
+        m_MethodName: HandleLightAttack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4761,7 +4761,7 @@ GameObject:
   - component: {fileID: 1822572611}
   - component: {fileID: 1822572610}
   m_Layer: 7
-  m_Name: Ground
+  m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5104,7 +5104,8 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7014360941577774683, guid: 8bb11e0d34a768f44a044ac814c2016e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -5124,17 +5125,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6448907780790035481, guid: 6b3f5a400006d8c42b55da3c8daff521,
         type: 3}
-      propertyPath: _dashTime
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6448907780790035481, guid: 6b3f5a400006d8c42b55da3c8daff521,
-        type: 3}
-      propertyPath: _dashSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6448907780790035481, guid: 6b3f5a400006d8c42b55da3c8daff521,
-        type: 3}
-      propertyPath: _cooldownUI
+      propertyPath: cooldownUI
       value: 
       objectReference: {fileID: 161550455}
     - target: {fileID: 8866209207604985628, guid: 6b3f5a400006d8c42b55da3c8daff521,
@@ -5348,7 +5339,8 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1225601921055296521, guid: 5b0cb44f0602af444b05d546626ce981, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

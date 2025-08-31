@@ -1,7 +1,6 @@
+using oxi;
 using UnityEngine;
 
-[RequireComponent(typeof(Health))]
-[RequireComponent(typeof(CharacterStats))]
 public abstract class CharacterCombatController : MonoBehaviour
 {
     [Header("References")]
@@ -9,29 +8,29 @@ public abstract class CharacterCombatController : MonoBehaviour
     protected CharacterStats characterStats;
     protected AnimatorHandler animatorHandler;
     protected Health health;
-    protected IWeapon weapon;
 
     public WeaponItem rightWeapon;
     public WeaponItem leftWeapon;
 
     public virtual void Awake()
     {
-        weaponSlotManager = GetComponent<WeaponSlotManager>();
+        weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
         characterStats = GetComponent<CharacterStats>();
         health = GetComponent<Health>();
+        animatorHandler = GetComponentInChildren<AnimatorHandler>();
     }
 
     public virtual void Start()
     {
-        animatorHandler = GetComponent<AnimatorHandler>();
-
-        weaponSlotManager.LoadWeaponOnSlot(rightWeapon, false);
-        weaponSlotManager.LoadWeaponOnSlot(leftWeapon, true);
-
-        weapon = rightWeapon.modelPrefab.gameObject.GetComponent<IWeapon>();
+        if (rightWeapon != null)
+        {
+            weaponSlotManager.LoadWeaponOnSlot(rightWeapon, false);
+        }
+        if (leftWeapon != null)
+        {
+            weaponSlotManager.LoadWeaponOnSlot(leftWeapon, true);
+        }
     }
-
-    public abstract void PerformAttack();
 
     public float CalculateDamage()
     {

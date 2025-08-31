@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3343849584659834880}
   - component: {fileID: 4579886847410971610}
   - component: {fileID: 1762556352078531599}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2071089048202686097}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -367,7 +367,7 @@ GameObject:
   - component: {fileID: 5765616171777566805}
   - component: {fileID: 6640071175824600949}
   - component: {fileID: 734134663467852933}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -555,10 +555,9 @@ GameObject:
   - component: {fileID: 412889944780953486}
   - component: {fileID: 1471613231717469899}
   - component: {fileID: 5524752769675220432}
-  - component: {fileID: 1225601921055296521}
   - component: {fileID: 1991073865483728662}
   - component: {fileID: 4666262982648260755}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: enemy_range_ghost
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -631,6 +630,7 @@ MonoBehaviour:
   attackRange: 8
   playerInSightRange: 0
   playerInAttackRange: 0
+  isDummy: 0
 --- !u!195 &4495221801607231991
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -705,19 +705,6 @@ MonoBehaviour:
   Strength: 1
   CritChance: 0
   CritMultiplier: 0
---- !u!114 &1225601921055296521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5156886225008102683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c234406fc29720e4f8d8301a8f8e2abb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponSpot: {fileID: 647283529297583457}
 --- !u!114 &1991073865483728662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -745,8 +732,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bc33e5989ac7524d91c7209ac0b6dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 4
-  _weaponSpot: {fileID: 647283529297583457}
+  rightWeapon: {fileID: 0}
+  leftWeapon: {fileID: 0}
 --- !u!1 &6280625974722570203
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,7 +745,7 @@ GameObject:
   - component: {fileID: 3857851070670890083}
   - component: {fileID: 8837986329535538637}
   - component: {fileID: 5652947093171611967}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1123,7 +1110,7 @@ GameObject:
   - component: {fileID: 6372778345150851523}
   - component: {fileID: 3298976057100319684}
   - component: {fileID: 1735894564600797848}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1264,7 +1251,6 @@ GameObject:
   - component: {fileID: 4833958226934391715}
   - component: {fileID: 6296928717483875029}
   - component: {fileID: 4266559772015471679}
-  - component: {fileID: 3000372413895381635}
   m_Layer: 0
   m_Name: staff
   m_TagString: Untagged
@@ -1338,22 +1324,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3000372413895381635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8776993067688864700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a91efd78d7fa004ab689e3fb3d357ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shootPoint: {fileID: 3865564312878984190}
-  projectile: {fileID: 5222094038002074733, guid: 758b44ef253a22542853a4fb1693fda4,
-    type: 3}
-  projectileSpeed: 16
 --- !u!1 &8863597593127088218
 GameObject:
   m_ObjectHideFlags: 0

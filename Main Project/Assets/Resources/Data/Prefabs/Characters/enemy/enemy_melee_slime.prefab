@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 2650564155165740888}
   - component: {fileID: 113283684209091715}
   - component: {fileID: 9014233704556187263}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -310,7 +310,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7491337324378302638}
   - component: {fileID: 4926996080146123191}
-  - component: {fileID: 5576366445753441894}
   m_Layer: 0
   m_Name: empty_enemy_weapon
   m_TagString: Untagged
@@ -354,18 +353,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.27742723
   m_Center: {x: -0.000000004045895, y: -0.22257213, z: -5.6174113e-17}
---- !u!114 &5576366445753441894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2710642951386141994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fef90c01bff069c4bae217ff3d2851c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2781835130532987774
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,7 +364,7 @@ GameObject:
   - component: {fileID: 1266150099487455771}
   - component: {fileID: 6782736825705755517}
   - component: {fileID: 6778313417143113560}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -483,10 +470,9 @@ GameObject:
   - component: {fileID: 6968825388200986999}
   - component: {fileID: 8201391373635236028}
   - component: {fileID: 3527014819500745746}
-  - component: {fileID: 7014360941577774683}
   - component: {fileID: 8792482343736968893}
   - component: {fileID: 5300621655780580571}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: enemy_melee_slime
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -579,6 +565,7 @@ MonoBehaviour:
   attackRange: 1.5
   playerInSightRange: 0
   playerInAttackRange: 0
+  isDummy: 0
 --- !u!114 &6968825388200986999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -591,7 +578,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f1924d23bfdd524380b15d0e9bc7fa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDead: 0
 --- !u!114 &8201391373635236028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -632,19 +618,6 @@ CapsuleCollider:
   m_Height: 2.0235834
   m_Direction: 1
   m_Center: {x: 0.008254766, y: 1.0070739, z: -0.013757944}
---- !u!114 &7014360941577774683
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3101869077072468237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c234406fc29720e4f8d8301a8f8e2abb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponSpot: {fileID: 8169118419649631912}
 --- !u!114 &8792482343736968893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -672,8 +645,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bc33e5989ac7524d91c7209ac0b6dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 4
-  _weaponSpot: {fileID: 8169118419649631912}
+  rightWeapon: {fileID: 0}
+  leftWeapon: {fileID: 0}
 --- !u!1 &3328511991154255020
 GameObject:
   m_ObjectHideFlags: 0
@@ -845,7 +818,7 @@ GameObject:
   - component: {fileID: 4571574405348618206}
   - component: {fileID: 6075591408031907388}
   - component: {fileID: 2925193429290363326}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -975,7 +948,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4973648093200696191}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1013,7 +986,7 @@ GameObject:
   - component: {fileID: 3984679524083063879}
   - component: {fileID: 5925259358245569109}
   - component: {fileID: 7401195165957781311}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}

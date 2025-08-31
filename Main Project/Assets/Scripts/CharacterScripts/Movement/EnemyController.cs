@@ -1,3 +1,4 @@
+using oxi;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,6 +8,7 @@ public class EnemyController : MonoBehaviour
 {
     NavMeshAgent agent;
     Animator animator;
+    AnimatorHandler animatorHandler;
     Transform player;
     EnemyCombatController combatController;
 
@@ -26,16 +28,22 @@ public class EnemyController : MonoBehaviour
     [Header("Range")]
     public bool playerInSightRange, playerInAttackRange;
 
+    [Header("DEV Tool")]
+    public bool isDummy;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
+        animatorHandler = GetComponentInChildren<AnimatorHandler>();
+        animator = animatorHandler.anim;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         combatController = GetComponent<EnemyCombatController>();
+        animatorHandler.Initialize();
     }
 
     private void Update()
     {
+        if (isDummy) return;
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 

@@ -17,8 +17,8 @@ public class EnemyCombatController : CharacterCombatController
         base.Start();
     }
 
-    public override void PerformAttack()
+    public void PerformAttack()
     {
-        weapon.PerformAttack(CalculateDamage(), player);
+        //weapon.PerformAttack(CalculateDamage(), player);
     }
 }

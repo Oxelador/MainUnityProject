@@ -1,3 +1,4 @@
+using oxi;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -17,7 +18,7 @@ public class CooldownUI : MonoBehaviour
     {
         _cooldownImage = GameObject.Find("Cooldown_Fill_Image").GetComponent<Image>();
         _cooldownText = GameObject.Find("Cooldown_Text").GetComponent<TextMeshProUGUI>();
-        _cooldown = FindObjectOfType<PlayerController>().DashCooldown;
+        //_cooldown = FindObjectOfType<PlayerLocomotion>().DashCooldown;
     }
 
     public void TriggerCooldown()

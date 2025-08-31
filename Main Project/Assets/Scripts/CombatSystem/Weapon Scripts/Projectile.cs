@@ -1,32 +1,35 @@
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+namespace oxi
 {
-    public GameObject owner;
-    public float Damage { get; set; }
-
-    private bool collided;
-
-    private void Awake()
+    public class Projectile : MonoBehaviour
     {
-        owner = transform.root.gameObject;
-    }
+        public GameObject owner;
+        public float Damage { get; set; }
 
-    private void OnCollisionEnter(Collision co)
-    {
-        if (co.gameObject != owner && co.gameObject.tag == "Player" || co.gameObject.tag == "Enemy")
+        private bool collided;
+
+        private void Awake()
         {
-            var health = co.gameObject.GetComponent<Health>();
-            if (health != null)
-            {
-                Debug.Log("Projectile hit: " + co.gameObject.name);
-                health.TakeDamage(Damage);
-            }
+            owner = transform.root.gameObject;
         }
-        if (co.gameObject != owner && co.gameObject.tag != "Projectile" && !collided)
+
+        private void OnCollisionEnter(Collision co)
         {
-            collided = true;
-            Destroy(gameObject);
+            if (co.gameObject != owner && co.gameObject.tag == "Player" || co.gameObject.tag == "Enemy")
+            {
+                var health = co.gameObject.GetComponent<Health>();
+                if (health != null)
+                {
+                    Debug.Log("Projectile hit: " + co.gameObject.name);
+                    health.TakeDamage(Damage);
+                }
+            }
+            if (co.gameObject != owner && co.gameObject.tag != "Projectile" && !collided)
+            {
+                collided = true;
+                Destroy(gameObject);
+            }
         }
     }
 }

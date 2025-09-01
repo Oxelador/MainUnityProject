@@ -22,22 +22,22 @@ public class PlayerCombatController : CharacterCombatController
         if (inputHandler.comboFlag)
         {
             animatorHandler.anim.SetBool("canDoCombo", false);
-            if (lastAttack == rightWeapon.OH_Light_Attack_1)
+            if (lastAttack == rightWeapon.oh_light_attack_01)
             {
-                animatorHandler.PlayTargetAnimation(rightWeapon.OH_Light_Attack_2, true);
+                animatorHandler.PlayTargetAnimation(rightWeapon.oh_light_attack_02, true);
             }
         }
     }
 
     public void HandleLightAttack()
     {
-        animatorHandler.PlayTargetAnimation(rightWeapon.OH_Light_Attack_1, true);
-        lastAttack = rightWeapon.OH_Light_Attack_1;
+        animatorHandler.PlayTargetAnimation(rightWeapon.oh_light_attack_01, true);
+        lastAttack = rightWeapon.oh_light_attack_01;
     }
 
     public void HandleHeavyAttack()
     {
-        animatorHandler.PlayTargetAnimation(rightWeapon.OH_Heavy_Attack_1, true);
-        lastAttack = rightWeapon.OH_Heavy_Attack_1;
+        animatorHandler.PlayTargetAnimation(rightWeapon.oh_heavy_attack_01, true);
+        lastAttack = rightWeapon.oh_heavy_attack_01;
     }
 }

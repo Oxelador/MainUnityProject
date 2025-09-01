@@ -4,9 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Gold
   - Enemy
   - Projectile
+  - Interactable
+  - Gold
   layers:
   - Default
   - TransparentFX

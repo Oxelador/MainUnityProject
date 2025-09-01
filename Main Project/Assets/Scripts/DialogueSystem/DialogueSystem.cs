@@ -60,7 +60,6 @@ public class DialogueSystem : MonoBehaviour
         else
         {
             dialoguePanel.SetActive(false);
-            npc.IsInteracted = false;
         }
     }
 }

@@ -11,7 +11,7 @@ scopes = {
 	"last_search.E8DA15E5" = ""
 	"OpenInspectorPreview.E8DA15E5" = "0"
 	"currentGroup.E8DA15E5" = "asset"
-	"last_search.FD7A1EDD" = "ref=\"Assets/Scripts/InventorySystem/EnemyInventoryController.cs\""
+	"last_search.FD7A1EDD" = "ref=\"Assets/Art/UI/Interaction_Talk_Button_UI.prefab\""
 	"OpenInspectorPreview.FD7A1EDD" = "0"
 	"currentGroup.FD7A1EDD" = "all"
 }

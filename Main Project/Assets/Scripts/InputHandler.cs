@@ -14,6 +14,7 @@ namespace oxi
         public float moveAmount;
 
         public bool rollInput;
+        public bool interactingInput;
         public bool lightAttackInput;
         public bool heavyAttackInput;
 
@@ -70,6 +71,7 @@ namespace oxi
             MoveInput(delta);
             HandleRollInput(delta);
             HandleAttackInput(delta);
+            HandleInteractingButtonInput();
 
             //rollInput = false; // for "joystick" input
         }
@@ -141,6 +143,13 @@ namespace oxi
 
                 combatController.HandleHeavyAttack();
             }
+        }
+
+        private void HandleInteractingButtonInput()
+        {
+            inputActions.PlayerActions.Interacting.performed += i => interactingInput = true;
+
+            
         }
     }
 }

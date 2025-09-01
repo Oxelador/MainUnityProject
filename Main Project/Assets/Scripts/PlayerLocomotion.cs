@@ -11,7 +11,7 @@ namespace oxi
 
         PlayerManager playerManager;
         InputHandler inputHandler;
-        new Rigidbody rigidbody;
+        public new Rigidbody rigidbody;
 
         Vector3 targetPosition;
 

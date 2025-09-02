@@ -4,11 +4,14 @@ namespace oxi
 {
     public class PlayerManager : MonoBehaviour
     {
-        public PlayerInventory playerInventory;
+        [HideInInspector] public PlayerInventory playerInventory;
 
         InputHandler inputHandler;
         Animator animator;
         PlayerLocomotion playerLocomotion;
+
+        InteractableUI interactableUI;
+        public GameObject interactableUIGameObject;
 
         [Header("Player Flags")]
         public bool isInteracting;
@@ -22,6 +25,7 @@ namespace oxi
             inputHandler = GetComponent<InputHandler>();
             animator = GetComponentInChildren<Animator>();
             playerLocomotion = GetComponent<PlayerLocomotion>();
+            interactableUI = FindObjectOfType<InteractableUI>();
         }
 
         void Update()
@@ -64,8 +68,8 @@ namespace oxi
                     if (interactableObject != null)
                     {
                         string interactableText = interactableObject.interactbleText;
-                        // set the ui text to the interactable object's text
-                        // set the text pop up to true
+                        interactableUI.interactableText.text = interactableText;
+                        interactableUIGameObject.SetActive(true);
 
                         if (inputHandler.interactingInput)
                         {
@@ -82,6 +86,13 @@ namespace oxi
                     {
                         hit.collider.GetComponent<Interactable>().Interact(this);
                     }
+                }
+            }
+            else
+            {
+                if(interactableUIGameObject != null)
+                {
+                    interactableUIGameObject.SetActive(false);
                 }
             }
         }
